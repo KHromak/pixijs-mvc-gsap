@@ -1,1 +1,1 @@
-let hey = '';
+let hey = 'init';
