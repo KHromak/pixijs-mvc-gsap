@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.blocks.css">
+
+    <title>pixijs</title>
+    <script src="../pixijs/pixi.min.js"></script>
+</head>
+
+<body>
+
+    <h1>shapes</h1>
+
+    <div class='game'>
+        <div class='game__current'>
+            <div class='game__current-shapes score'  id='numberShapes'></div>
+            <div class='game__current-area score'  id='occupiedArea'></div>
+        </div>
+        <div class='game__screen' id='gameScreen'></div>
+        <div class='game__current'>
+            <div class='game__shapes-decr button' type='button' id='decreaseShapes'>-</div>
+            <div class='game__shapes-incr button' type='button' id='increaseShapes'>+</div>
+            <div class='game__shapes-description description'>Number of shapes per sec</div>
+            <div class='game__gravity-decr button' type='button' id='decreaseGravity'>-</div>
+            <div class='game__gravity-incr button' type='button' id='increaseGravity'>+</div>
+            <div class='game__gravity-description description'>Gravity Value</div>
+        </div>
+        
+
+
+    </div>
+
+
+    <script src='app.bundle.js'></script>
+
+    <canvas id="c"></canvas>
+
+
+</body>
+
+</html>

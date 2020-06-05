@@ -1,0 +1,47 @@
+$body-color: blue;
+$descr-padding: 10px;
+$button-padding: 10px;
+$button-border: 2px solid blue;
+$button-bg-color: #1099bb;
+
+body {
+  color: $body-color;
+}
+
+.game {
+
+    &__current {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        .score {
+            max-width: 150px;
+            width: 100%;
+            border: $button-border;
+            padding: $descr-padding;
+        }
+
+        .button {
+            background-color: $button-bg-color;
+            padding: $button-padding;
+            max-width: 20px;
+            width: 100%;
+            border: $button-border;
+            border-radius: 8px;
+        }
+
+        .description {
+            padding: $descr-padding;
+            border: $button-border;
+        }
+    }
+
+    &__screen {
+        max-width: 1200px;
+        width: 100%;
+        height: auto;
+    }
+
+}

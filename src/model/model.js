@@ -4,7 +4,7 @@
  */
 class Model {
     constructor() {
-        this.data = "Hello MVC world!";
+        this.data = "Hello MVffffdddC world!";
       }
     
 }

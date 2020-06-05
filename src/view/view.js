@@ -4,9 +4,9 @@
  */
 class View {
     constructor () {
-        this.render = (text) => alert(text);
+        this.render = (text) => console.log(text);
     }
     
 }
 
-export default View;
+export default View

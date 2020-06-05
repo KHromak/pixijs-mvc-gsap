@@ -1,0 +1,33 @@
+body {
+  color: blue;
+}
+
+.game__current {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.game__current .score {
+  max-width: 150px;
+  width: 100%;
+  border: 2px solid blue;
+  padding: 10px;
+}
+.game__current .button {
+  background-color: #1099bb;
+  padding: 10px;
+  max-width: 20px;
+  width: 100%;
+  border: 2px solid blue;
+  border-radius: 8px;
+}
+.game__current .description {
+  padding: 10px;
+  border: 2px solid blue;
+}
+.game__screen {
+  max-width: 1200px;
+  width: 100%;
+  height: auto;
+}

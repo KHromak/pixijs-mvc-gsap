@@ -77,11 +77,11 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model/model */ \"./src/model/model.js\");\n/* harmony import */ var _controller_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/controller */ \"./src/controller/controller.js\");\n/* harmony import */ var _view_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./view/view */ \"./src/view/view.js\");\n\n\n\n\nvar main = function main() {\n  var model = new _model_model__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n  var view = new _view_view__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\n  var controller = new _controller_controller__WEBPACK_IMPORTED_MODULE_1__[\"default\"](model, view);\n  controller.showMessage();\n};\n\nwindow.onload = main;\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model/model */ \"./src/model/model.js\");\n/* harmony import */ var _controller_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/controller */ \"./src/controller/controller.js\");\n/* harmony import */ var _view_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./view/view */ \"./src/view/view.js\");\n\n\n\n\nvar main = function main() {\n  var model = new _model_model__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n  var view = new _view_view__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\n  var controller = new _controller_controller__WEBPACK_IMPORTED_MODULE_1__[\"default\"](model, view);\n  controller.showMessage();\n};\n\nwindow.onload = main;\nvar app = new PIXI.Application({\n  width: 300,\n  height: 200,\n  backgroundColor: 0x1099bb,\n  resolution: window.devicePixelRatio || 1\n});\ndocument.body.appendChild(app.view);\nvar container = new PIXI.Container();\napp.stage.addChild(container); // Create a new texture\n\nvar texture = PIXI.Texture.from('https://pixijs.io/examples/examples/assets/bunny.png'); // Create a 5x5 grid of bunnies\n\nfor (var i = 0; i < 25; i++) {\n  var bunny = new PIXI.Sprite(texture);\n  bunny.anchor.set(0.5);\n  bunny.x = i % 5 * 40;\n  bunny.y = Math.floor(i / 5) * 40;\n  container.addChild(bunny);\n} // Move container to the center\n\n\ncontainer.x = app.screen.width / 2;\ncontainer.y = app.screen.height / 2; // Center bunny sprite in local container coordinates\n\ncontainer.pivot.x = container.width / 2;\ncontainer.pivot.y = container.height / 2; // Listen for animate update\n\napp.ticker.add(function (delta) {\n  // rotate the container!\n  // use delta to create frame-independent transform\n  container.rotation -= 0.01 * delta;\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -118,7 +118,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n/**\n * Model (Data Layer) - this is where the data is stored for your app.\n * The model is decoupled from the views and controller.\n */\nvar Model = function Model() {\n  _classCallCheck(this, Model);\n\n  this.data = \"Hello MVC world!\";\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Model);\n\n//# sourceURL=webpack:///./src/model/model.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n/**\n * Model (Data Layer) - this is where the data is stored for your app.\n * The model is decoupled from the views and controller.\n */\nvar Model = function Model() {\n  _classCallCheck(this, Model);\n\n  this.data = \"Hello MVffffdddC world!\";\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Model);\n\n//# sourceURL=webpack:///./src/model/model.js?");
 
 /***/ }),
 
@@ -130,7 +130,30 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(inst
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n/**\n * View (Presentation Layer) - This part of your App has access to the DOM or Canvas.\n * Use it to draw, display or animate whatever you want\n */\nvar View = function View() {\n  _classCallCheck(this, View);\n\n  this.render = function (text) {\n    return alert(text);\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (View);\n\n//# sourceURL=webpack:///./src/view/view.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n/**\n * View (Presentation Layer) - This part of your App has access to the DOM or Canvas.\n * Use it to draw, display or animate whatever you want\n */\nvar View = function View() {\n  _classCallCheck(this, View);\n\n  this.render = function (text) {\n    return console.log(text);\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (View);\n\n//# sourceURL=webpack:///./src/view/view.js?");
+
+/***/ }),
+
+/***/ "./styles/style.scss":
+/*!***************************!*\
+  !*** ./styles/style.scss ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"css/style.blocks.css\");\n\n//# sourceURL=webpack:///./styles/style.scss?");
+
+/***/ }),
+
+/***/ 0:
+/*!************************************************!*\
+  !*** multi ./src/index.js ./styles/style.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! ./src/index.js */\"./src/index.js\");\nmodule.exports = __webpack_require__(/*! ./styles/style.scss */\"./styles/style.scss\");\n\n\n//# sourceURL=webpack:///multi_./src/index.js_./styles/style.scss?");
 
 /***/ })
 
