@@ -9,6 +9,7 @@ class Model {
           speed : 30,
           shapes : 10
         }
+        
       }
 
       addShape () {
@@ -24,6 +25,8 @@ class Model {
         graphics.drawRect(50, 250, 100, 100);
         return graphics;
       }
+
+      
 
 }
 

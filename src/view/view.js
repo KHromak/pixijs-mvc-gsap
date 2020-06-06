@@ -25,16 +25,26 @@ class View {
     }
 
 
-    drawShape (figure) {
-
-        let shape = this.app.stage.addChild(figure);
+    drawShape (form) {
+        let shape = this.app.stage.addChild(form);
         return shape;
-    }  
+    }
+    
+    fallingCycleShape (shape) {
+        this.killShape(shape);
+        this.fallDownShape()
+    }
 
     fallDownShape () {
         let shape = this.drawShape(this.model.createRect())
-        TweenMax.to(shape, 44, {y:600})
+        
+        TweenMax.to(shape, 1, {y:40, onComplete:()=>this.fallingCycleShape(shape)})
     }
+
+    killShape (shape) {
+        this.app.stage.removeChild(shape);
+    }
+    
     
 }
 
