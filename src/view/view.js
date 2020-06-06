@@ -4,7 +4,6 @@
  */
 
 import Model from '../model/model';
-import createRect from '../model/model';
 
 class View {
     
@@ -12,24 +11,22 @@ class View {
 
         this.model = new Model();
 
-
         this.test = (text) => console.log(text);
         this.app = new PIXI.Application({
             width: 800,
             height: 600,
             backgroundColor: 0x1099bb,
         });
-
+       
         document.querySelector('#gameScreen').appendChild(this.app.view);
     }
 
+
     drawShape () {
+
+        this.app.stage.addChild(this.model.createRect());
     
-          this.app.stage.addChild(this.model.addShape);
-         
- 
-    }
-      
+    }  
     
 }
 

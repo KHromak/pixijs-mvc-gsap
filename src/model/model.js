@@ -4,14 +4,14 @@
  */
 class Model {
     constructor() {
-        this.data = "Hello MVffffdddC world!";
+        
         this.config = {
           speed : 30,
           shapes : 10
         }
       }
 
-      addSHape () {
+      addShape () {
         shapePosition = {
           x: 10,
           y: 20
@@ -22,9 +22,9 @@ class Model {
         let graphics = new PIXI.Graphics();
         graphics.lineStyle(2, 0x0000FF, 1);
         graphics.drawRect(50, 250, 100, 100);
-
+        return graphics;
       }
-    
+
 }
 
 export default Model;
