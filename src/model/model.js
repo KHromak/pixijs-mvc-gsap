@@ -5,6 +5,24 @@
 class Model {
     constructor() {
         this.data = "Hello MVffffdddC world!";
+        this.config = {
+          speed : 30,
+          shapes : 10
+        }
+      }
+
+      addSHape () {
+        shapePosition = {
+          x: 10,
+          y: 20
+        };
+      }
+
+      createRect () {
+        let graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.drawRect(50, 250, 100, 100);
+
       }
     
 }
