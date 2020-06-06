@@ -7,10 +7,8 @@ const main = () => {
     const view = new View();
     const controller = new Controller(model, view);
 
-
-    controller.showMessage();
-
-    view.drawShape();
+    
+    view.fallDownShape()
 
 };
 

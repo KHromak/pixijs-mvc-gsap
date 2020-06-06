@@ -4,6 +4,9 @@
  */
 
 import Model from '../model/model';
+import TweenMax from '../../pixijs/TweenMax';
+
+
 
 class View {
     
@@ -11,7 +14,7 @@ class View {
 
         this.model = new Model();
 
-        this.test = (text) => console.log(text);
+        this.renderer = PIXI.autoDetectRenderer([])
         this.app = new PIXI.Application({
             width: 800,
             height: 600,
@@ -22,11 +25,16 @@ class View {
     }
 
 
-    drawShape () {
+    drawShape (figure) {
 
-        this.app.stage.addChild(this.model.createRect());
-    
+        let shape = this.app.stage.addChild(figure);
+        return shape;
     }  
+
+    fallDownShape () {
+        let shape = this.drawShape(this.model.createRect())
+        TweenMax.to(shape, 44, {y:600})
+    }
     
 }
 
