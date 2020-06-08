@@ -23,8 +23,16 @@ class Controller {
     }
 
     initGame () {
+        this.view.interactive();
         this.startSpawingShapes();
         this.buttonListeners();
+
+        this.view.app.stage.on('click', (e) => {
+           console.log(e.data.global)
+            // this.view.fallDownShape(this.model.randomShapePicker());
+        });
+
+        
 
     }
 

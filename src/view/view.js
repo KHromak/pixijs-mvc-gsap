@@ -18,10 +18,17 @@ class View {
             backgroundColor: 0x1099bb,
             // resizeTo: window 
         });
-        this.app.stage.interactive = true;
+
         document.querySelector('#gameScreen').appendChild(this.app.view);
 
     }
+
+    interactive() {
+        this.app.stage.interactive = true;
+        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height);
+    }
+
+
 
 
     drawShape(form) {
@@ -31,20 +38,27 @@ class View {
 
     //нажатие на фигуру вызывает kill
 
+    consolll() {
+        return console.log('ckiii')
+    }
+
     fallDownShape(randomShape) {
 
-        let drawedShape = this.drawShape(randomShape)//вот этот метод перенести отсюда
-        
-        
+        let drawedShape = this.drawShape(randomShape);
+
+
+
+
         return TweenMax.to(
             drawedShape,
             this.model.config.gravity,
             {
                 y: this.model.config.height * 2.5,
-                onComplete: () =>  this.killShape(drawedShape),
-                ease:Power2.easeIn
-               
+                onComplete: () => this.killShape(drawedShape),
+                ease: Power2.easeIn
             })
+
+
 
         // t.duration(this.model.config.gravity)
     }
@@ -53,12 +67,16 @@ class View {
     //     object.duration(value)
     // }
 
+
+
     killShape(shape) {
         this.app.stage.removeChild(shape);
     }
 
-    clickOnArea() {
-        
+    clickOnArea(shape) {
+        if (shape) {
+            this.killShape(shape)
+        }
     }
 
 
