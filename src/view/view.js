@@ -9,43 +9,66 @@ import TweenMax from '../../pixijs/TweenMax';
 
 
 class View {
-    
-    constructor () {
+
+    constructor() {
 
         this.model = new Model();
 
-        this.renderer = PIXI.autoDetectRenderer([])
         this.app = new PIXI.Application({
-            width: 800,
-            height: 600,
+            width: this.model.config.width,
+            height: this.model.config.height,
             backgroundColor: 0x1099bb,
+            // resizeTo: window 
         });
-       
+        this.app.stage.interactive = true;
         document.querySelector('#gameScreen').appendChild(this.app.view);
+
     }
 
 
-    drawShape (form) {
+    drawShape(form) {
         let shape = this.app.stage.addChild(form);
         return shape;
     }
-    
-    fallingCycleShape (shape) {
+
+    fallingCycleShape(shape) {
         this.killShape(shape);
-        this.fallDownShape()
+        // this.fallDownShape()
     }
 
-    fallDownShape () {
-        let shape = this.drawShape(this.model.createRect())
+    //нажатие на фигуру вызывает kill
+
+    //fallDownShape ( принимает shape ) определенной формы из модел, через рандомайзер,
+    // написать рандомайзер 
+    // наделать разных форм по тз
+    // поменять метод падения
+
+    fallDownShape(randomShape) {
+
+        let drawShape = this.drawShape(randomShape)//вот этот метод перенести отсюда
         
-        TweenMax.to(shape, 1, {y:40, onComplete:()=>this.fallingCycleShape(shape)})
+        
+        return TweenMax.to(
+            drawShape,
+            1,
+            {
+                y: this.model.config.height,
+                onComplete: () => this.fallingCycleShape(drawShape)
+               
+            })
+
+        // t.duration(this.model.config.gravity)
     }
 
-    killShape (shape) {
+    gravityControl(object, value) {
+        object.duration(value)
+    }
+
+    killShape(shape) {
         this.app.stage.removeChild(shape);
     }
-    
-    
+
+
 }
 
 export default View

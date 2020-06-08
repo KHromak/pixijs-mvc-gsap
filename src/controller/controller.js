@@ -11,11 +11,52 @@ class Controller {
     constructor(model, view) {
         this.model = new Model();
         this.view = new View();
+
+        this.numberOfShapes = document.querySelector('#numberOfShapes');
+        this.occupiedArea = document.querySelector('#occupiedArea');
+        this.increaseShapes = document.querySelector('#increaseShapes');
+        this.decreaseShapes = document.querySelector('#decreaseShapes');
+        this.increaseGravity = document.querySelector('#increaseGravity');
+        this.decreaseGravity = document.querySelector('#decreaseGravity');
+
+        this.initGame ()
     }
 
-    showMessage() {
-        this.view.render(this.model.data);
+    initGame () {
+        this.startSpawingShapes();
+        this.buttonListeners();
+
     }
+
+    buttonListeners () {
+        this.increaseGravity.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.model.increaseGravityAction();
+            // TweenMax.to(items[2].anim, 2, {timeScale:50})
+        });
+    }
+
+    gravityControl (object, value) {
+        object.duration(value)
+    }
+
+    createShapes(shapesQuantity) {
+        for(let i = 0; i < shapesQuantity; i++) {
+          this.view.fallDownShape(this.model.randomShapePicker());
+        }
+    }
+
+    startSpawingShapes() {
+        setInterval(() => {
+            this.createShapes(this.model.config.shapesQuantity);
+        }, this.model.config.delayBetweenSpawn);
+    }
+
+    
+
+
+
+
 }
 
 export default Controller;
