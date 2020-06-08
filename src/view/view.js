@@ -6,8 +6,6 @@
 import Model from '../model/model';
 import TweenMax from '../../pixijs/TweenMax';
 
-
-
 class View {
 
     constructor() {
@@ -31,30 +29,20 @@ class View {
         return shape;
     }
 
-    fallingCycleShape(shape) {
-        this.killShape(shape);
-        // this.fallDownShape()
-    }
-
     //нажатие на фигуру вызывает kill
-
-    //fallDownShape ( принимает shape ) определенной формы из модел, через рандомайзер,
-    // написать рандомайзер 
-    // наделать разных форм по тз
-    // поменять метод падения
 
     fallDownShape(randomShape) {
 
-        let drawShape = this.drawShape(randomShape)//вот этот метод перенести отсюда
+        let drawedShape = this.drawShape(randomShape)//вот этот метод перенести отсюда
         
         
         return TweenMax.to(
-            drawShape,
-            6,
+            drawedShape,
+            this.model.config.gravity,
             {
-                y: this.model.config.height * 2,
-                onComplete: () =>  this.killShape(drawShape),
-                ease:Power1.easeIn
+                y: this.model.config.height * 2.5,
+                onComplete: () =>  this.killShape(drawedShape),
+                ease:Power2.easeIn
                
             })
 
@@ -67,6 +55,10 @@ class View {
 
     killShape(shape) {
         this.app.stage.removeChild(shape);
+    }
+
+    clickOnArea() {
+        
     }
 
 

@@ -42,7 +42,6 @@ class Controller {
 
     createShapes(shapesQuantity) {
         for(let i = 0; i < shapesQuantity; i++) {
-            console.log('this.view.fallDownShape(this.model.randomShapePicker());', this.view.fallDownShape(this.model.randomShapePicker()))
           this.view.fallDownShape(this.model.randomShapePicker());
         }
     }
