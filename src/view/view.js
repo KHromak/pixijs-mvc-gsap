@@ -50,19 +50,20 @@ class View {
         
         return TweenMax.to(
             drawShape,
-            1,
+            6,
             {
-                y: this.model.config.height,
-                onComplete: () => this.fallingCycleShape(drawShape)
+                y: this.model.config.height * 2,
+                onComplete: () =>  this.killShape(drawShape),
+                ease:Power1.easeIn
                
             })
 
         // t.duration(this.model.config.gravity)
     }
 
-    gravityControl(object, value) {
-        object.duration(value)
-    }
+    // gravityControl(object, value) {
+    //     object.duration(value)
+    // }
 
     killShape(shape) {
         this.app.stage.removeChild(shape);

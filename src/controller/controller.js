@@ -36,12 +36,13 @@ class Controller {
         });
     }
 
-    gravityControl (object, value) {
-        object.duration(value)
-    }
+    // gravityControl (object, value) {
+    //     object.duration(value)
+    // }
 
     createShapes(shapesQuantity) {
         for(let i = 0; i < shapesQuantity; i++) {
+            console.log('this.view.fallDownShape(this.model.randomShapePicker());', this.view.fallDownShape(this.model.randomShapePicker()))
           this.view.fallDownShape(this.model.randomShapePicker());
         }
     }

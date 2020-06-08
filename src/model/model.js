@@ -8,31 +8,19 @@ class Model {
     this.config = {
 
       gravity: 4,
-      width: 300,
-      height: 300,
+      width: 900,
+      height: 900,
       delayBetweenSpawn: 1000,
       shapesQuantity: 20
     }
-
-   
-
   }
-
-  // addShape() {
-  //   shapePosition = {
-  //     x: 10,
-  //     y: 0
-  //   };
-  // }
-
-
 
   createRect() {
     let graphics = new PIXI.Graphics();
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.drawRect(
-      this.getRandomInRange(0, 200),
-      this.getRandomInRange(-100, -80),
+      this.getRandomInRange(0, this.config.width),
+      this.getRandomInRange(-1000, -80),
       100, 100);
     return graphics;
   }
@@ -42,19 +30,21 @@ class Model {
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0xFFFF0B, 0.5);
     graphics.drawCircle(
-      this.getRandomInRange(0, 200),
-       90, 60);
+      this.getRandomInRange(0, this.config.width),
+      this.getRandomInRange(-1000, -80), 60);
     graphics.endFill();
     return graphics;
   }
 
   createTriangle() {
+    
     let graphics = new PIXI.Graphics();
     graphics.moveTo(50, 50);
     graphics.lineTo(250, 50);
     graphics.lineTo(150, 150);
     graphics.lineTo(50, 50);
     graphics.endFill();
+    console.log('triangle!')
     return graphics;
   }
 
@@ -92,7 +82,7 @@ class Model {
   }
 
   randomShapePicker() {
-    let randomShape = this.getRandomInRange(1, 2)
+    let randomShape = this.getRandomInRange(1, 3)
     console.log(randomShape)
     switch (randomShape) {
       case 1:
@@ -101,9 +91,9 @@ class Model {
       case 2:
         return this.createCircle();
      
-      // case 3:
-      //   return this.createTriangle();
-      //   break;
+      case 3:
+        return this.createTriangle();
+
       // case 4:
       //   return this.createHexagon();
       //   break;
