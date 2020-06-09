@@ -18,8 +18,8 @@ class View {
             backgroundColor: 0x1099bb,
             // resizeTo: window 
         });
-
-        document.querySelector('#gameScreen').appendChild(this.app.view);
+        this.app.renderer.autoResize = true;
+        document.getElementById('gameScreen').appendChild(this.app.renderer.view);
 
     }
 
@@ -28,26 +28,14 @@ class View {
         this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height);
     }
 
-
-
-
     drawShape(form) {
         let shape = this.app.stage.addChild(form);
         return shape;
     }
 
-    //нажатие на фигуру вызывает kill
-
-    consolll() {
-        return console.log('ckiii')
-    }
-
     fallDownShape(randomShape) {
 
         let drawedShape = this.drawShape(randomShape);
-
-
-
 
         return TweenMax.to(
             drawedShape,

@@ -12,7 +12,6 @@
     "html-webpack-plugin": "^4.3.0",
     "lodash": "^4.17.15",
     "node-gyp": "^7.0.0",
-    "pixi.js": "^5.0.0-rc",
     "postcss-loader": "^3.0.0",
     "webpack-cli": "^3.3.11"
   },
