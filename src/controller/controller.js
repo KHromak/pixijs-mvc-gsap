@@ -7,8 +7,11 @@
 import Model from '../model/model';
 import View from '../view/view';
 
+
 class Controller {
+    
     constructor(model, view) {
+       
         this.model = new Model();
         this.view = new View();
 
@@ -19,51 +22,62 @@ class Controller {
         this.increaseGravity = document.querySelector('#increaseGravity');
         this.decreaseGravity = document.querySelector('#decreaseGravity');
 
-        this.initGame ()
+        this.initGame();
     }
 
-    initGame () {
-        this.view.interactive();
-        this.startSpawingShapes();
-        this.buttonListeners();
-
-        this.view.app.stage.on('click', (e) => {
-           console.log(e.data.global)
-            // this.view.fallDownShape(this.model.randomShapePicker());
-        });
-
+    initGame() {
         
 
+        this.model.broadcast({gravity: this.model.config.gravity});
+        this.model.broadcast({shapesPerSecond: this.model.config.shapesPerSecond});
+
+        this.view.app.stage.on('click', (e) => {
+            let position = (e.data.global);
+            this.view.fallDownShape(this.model.randomShapePicker(position));
+        });
+
+        this.view.interactive();
+        this.buttonListeners();
+        this.startSpawingShapes();
     }
 
-    buttonListeners () {
+    buttonListeners() {
         this.increaseGravity.addEventListener('click', (e) => {
-            e.preventDefault();
             this.model.increaseGravityAction();
-            // TweenMax.to(items[2].anim, 2, {timeScale:50})
+            this.model.broadcast({gravity: this.model.config.gravity})
+            console.log(this.model.config.gravity, 'gravity')
         });
     }
 
-    // gravityControl (object, value) {
-    //     object.duration(value)
-    // }
-
-    createShapes(shapesQuantity) {
-        for(let i = 0; i < shapesQuantity; i++) {
-          this.view.fallDownShape(this.model.randomShapePicker());
+    createShapes(shapesPerSecond) {
+        for (let i = 0; i < shapesPerSecond; i++) {
+            let randomShape = this.model.randomShapePicker();
+            this.view.fallDownShape(randomShape);
         }
     }
 
     startSpawingShapes() {
         setInterval(() => {
-            this.createShapes(this.model.config.shapesQuantity);
+            this.createShapes(this.model.config.shapesPerSecond);
         }, this.model.config.delayBetweenSpawn);
     }
 
-    
+    registerNewShape (shape) {
 
+        if (shape) {
+            shape.on('click', () => {
+                this.model.removeShape(shape);
+            });
+        }
+    }
 
+    // setHitAreaOnShape() {
+    //     figure.hitArea = figure.getBounds();
+    // }
 
+    // initShape () {
+    //     let figure = new PIXI.Graphics();
+    // }
 
 }
 
