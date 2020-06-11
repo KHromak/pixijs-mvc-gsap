@@ -3,9 +3,7 @@
  * Use it to draw, display or animate whatever you want
  */
 
-import Model from '../model/model';
 import TweenMax from '../../pixijs/TweenMax';
-import Controller from '../controller/controller';
 import Observer from '../observer/observer';
 
 class View {
@@ -47,6 +45,7 @@ class View {
         this.onDecreaseGravity = new Observer();
 
         this.onWhiteSpaceClicked = new Observer();
+        this.onNumberOfShapes = new Observer();
 
         this.increaseShapes.addEventListener('click', () => this.onIncreaseShapes.notify());
         this.decreaseShapes.addEventListener('click', () => this.onDecreaseShapes.notify());
@@ -63,6 +62,11 @@ class View {
     updateInputs() {
         this.updateShapes();
         this.updateGravity();
+        this.updateNumberOfShapes();
+    }
+
+    updateNumberOfShapes() {
+        this.numberOfShapes.value = this.model.shapesQuantity;
     }
 
     updateShapes() {
@@ -76,6 +80,7 @@ class View {
     subscribeModel() {
         this.model.onShapesChanged.subscribe(() => this.updateShapes());
         this.model.onGravityChanged.subscribe(() => this.updateGravity());
+        this.model.onShapesQuantity.subscribe(() => this.updateNumberOfShapes());
     }
 
     initialize() {

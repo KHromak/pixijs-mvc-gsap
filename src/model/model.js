@@ -9,9 +9,11 @@ class Model {
   constructor() {
     this.onGravityChanged = new Observer();
     this.onShapesChanged = new Observer();
+    this.onShapesQuantity = new Observer();
 
     this.gravity = 7;
     this.shapesPerSecond = 2;
+    this.shapesQuantity;
 
     this.config = {
       width: 900,
@@ -29,6 +31,11 @@ class Model {
   setShapesPerSecond(value) {
     this.shapesPerSecond = value;
     this.onShapesChanged.notify();
+  }
+
+  setShapesQuantity(value) {
+    this.shapesQuantity = value;
+    this.onShapesQuantity.notify();
   }
 
   xPositionCalulate(position) {
