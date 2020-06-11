@@ -92,9 +92,9 @@ class Model {
     figure.beginFill(bodyColor, 0.5);
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.moveTo(posX, posY);
-    figure.lineTo(posX + 100, posY);
-    figure.lineTo(posX + 50, posY + 70);
-    figure.lineTo(posX, posY);
+    figure.lineTo(posX + 50, posY);
+    figure.lineTo(posX, posY + 70);
+    figure.lineTo(posX -50, posY);
     figure.closePath();
     figure.endFill();
     figure.interactive = true;
