@@ -13,7 +13,7 @@ class Model {
 
     this.gravity = 7;
     this.shapesPerSecond = 2;
-    this.shapesQuantity;
+    this.shapesQuantity = 0;
 
     this.config = {
       width: 900,

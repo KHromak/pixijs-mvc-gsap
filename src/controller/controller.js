@@ -18,7 +18,7 @@ class Controller {
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
         this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity - 0.5));
 
-        this.view.onNumberOfShapes.subscribe(() => this.model.setShapesQuantity(this.view.app.stage.children.length));
+        this.view.onNumberOfShapes.subscribe(() => this.model.setShapesQuantity(this.model.shapesQuantity));
 
         this.view.onWhiteSpaceClicked.subscribe(position => {
             this.view.fallDownShape(this.model.randomShapePicker(position));

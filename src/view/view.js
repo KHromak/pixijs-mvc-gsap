@@ -57,6 +57,8 @@ class View {
             let position = (e.data.global);
             this.onWhiteSpaceClicked.notify(position);
         });
+
+        this.onNumberOfShapes.notify(this.app.stage.children.length)
     }
 
     updateInputs() {
