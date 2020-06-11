@@ -26,6 +26,7 @@ body {
   width: 100%;
   border: 2px solid blue;
   border-radius: 8px;
+  margin-right: 5px;
 }
 .game__current .description {
   padding: 10px;
@@ -39,8 +40,4 @@ body {
   max-width: 1200px;
   width: 100%;
   height: auto;
-}
-
-.game:nth-child(1) {
-  display: none;
 }
