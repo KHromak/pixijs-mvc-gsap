@@ -9,17 +9,16 @@ class Model {
   constructor() {
     this.onGravityChanged = new Observer();
     this.onShapesChanged = new Observer();
-    this.onShapesQuantity = new Observer();
+    this.onDisplayedChanged = new Observer();
 
-    this.gravity = 7;
+    this.gravity = 3;
     this.shapesPerSecond = 2;
-    this.shapesQuantity = 0;
+    this.displayed = 0;
 
     this.config = {
       width: 900,
       height: 500,
       delayBetweenSpawn: 1000,
-      shapesPerSecond: 2,
     };
   }
 
@@ -33,9 +32,9 @@ class Model {
     this.onShapesChanged.notify();
   }
 
-  setShapesQuantity(value) {
-    this.shapesQuantity = value;
-    this.onShapesQuantity.notify();
+  setDisplayed(value) {
+    this.displayed = value;
+    this.onDisplayedChanged.notify();
   }
 
   xPositionCalulate(position) {

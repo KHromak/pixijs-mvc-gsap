@@ -3,8 +3,8 @@
  * Use it to draw, display or animate whatever you want
  */
 
-import TweenMax from '../../pixijs/TweenMax';
 import Observer from '../observer/observer';
+import TweenMax from '../../pixijs/TweenMax';
 
 class View {
 
@@ -16,7 +16,7 @@ class View {
             height: this.model.config.height,
             backgroundColor: 0x1099bb,
         });
-        
+
         this.app.renderer.autoResize = true;
         document.getElementById('gameScreen').appendChild(this.app.renderer.view);
 
@@ -44,8 +44,9 @@ class View {
         this.onIncreaseGravity = new Observer();
         this.onDecreaseGravity = new Observer();
 
-        this.onWhiteSpaceClicked = new Observer();
-        this.onNumberOfShapes = new Observer();
+        this.onCanvasClicked = new Observer();
+        this.onShapeClicked = new Observer();
+        this.onShapeExit = new Observer();
 
         this.increaseShapes.addEventListener('click', () => this.onIncreaseShapes.notify());
         this.decreaseShapes.addEventListener('click', () => this.onDecreaseShapes.notify());
@@ -54,21 +55,15 @@ class View {
         this.decreaseGravity.addEventListener('click', () => this.onDecreaseGravity.notify());
 
         this.app.stage.on('click', e => {
-            let position = (e.data.global);
-            this.onWhiteSpaceClicked.notify(position);
+            let position = e.data.global;
+            this.onCanvasClicked.notify(position);
         });
-
-        this.onNumberOfShapes.notify(this.app.stage.children.length)
     }
 
     updateInputs() {
         this.updateShapes();
         this.updateGravity();
-        this.updateNumberOfShapes();
-    }
-
-    updateNumberOfShapes() {
-        this.numberOfShapes.value = this.model.shapesQuantity;
+        this.updateDisplayed();
     }
 
     updateShapes() {
@@ -79,10 +74,14 @@ class View {
         this.gravityInput.value = this.model.gravity;
     }
 
+    updateDisplayed() {
+        this.numberOfShapes.value = this.model.displayed;
+    }
+
     subscribeModel() {
         this.model.onShapesChanged.subscribe(() => this.updateShapes());
         this.model.onGravityChanged.subscribe(() => this.updateGravity());
-        this.model.onShapesQuantity.subscribe(() => this.updateNumberOfShapes());
+        this.model.onDisplayedChanged.subscribe(() => this.updateDisplayed());
     }
 
     initialize() {
@@ -98,31 +97,35 @@ class View {
         this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
     }
 
-    drawShape(figure) {
-        let shape = this.app.stage.addChild(figure);
-        return shape;
+    drawShape(shape) {
+        this.app.stage.addChild(shape);
+
+        shape.on('click', e => {
+            debugger;
+            e.stopPropagation();
+            this.onShapeClicked.notify(shape);
+        });
+
+        let args = {
+            y: this.model.config.height - shape.hitArea.y,
+            onComplete: () => this.onShapeExit.notify(shape),
+            ease: Linear.easeNone,
+            onUpdate: () => {
+                // debugger;
+                // console.log(shape.position.y);
+
+                // if (shape.position.y + shape.hitArea.y >= this.model.config.height) {
+                //     this.onShapeExit.notify(shape);
+                // }
+            }
+        };
+
+        TweenMax.to(shape, this.model.gravity, args);
     }
 
     removeShape(shape) {
         this.app.stage.removeChild(shape);
     }
-
-    fallDownShape(randomShape) {
-        let shape = this.drawShape(randomShape);
-
-        shape.on('click', e => {
-            e.stopPropagation();
-            this.removeShape(shape);
-        })
-
-        let args = {
-            y: this.model.config.height * 2.5,
-            onComplete: () => this.removeShape(shape),
-            // ease: Power2.easeIn
-        };
-
-        TweenMax.to(shape, this.model.gravity, args);
-    }
 }
 
-export default View
+export default View;
