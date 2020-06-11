@@ -76,14 +76,14 @@ class Controller {
         }, this.model.config.delayBetweenSpawn);
     }
 
-    registerNewShape(shape) {
+    // registerNewShape(shape) {
 
-        if (shape) {
-            shape.on('click', () => {
-                this.model.removeShape(shape);
-            });
-        }
-    }
+    //     if (shape) {
+    //         shape.on('click', () => {
+    //             this.model.removeShape(shape);
+    //         });
+    //     }
+    // }
 
     // setHitAreaOnShape() {
     //     figure.hitArea = figure.getBounds();

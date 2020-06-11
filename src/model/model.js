@@ -12,7 +12,7 @@ class Model extends GameObserver{
     this.config = {
       gravity: 7,
       width: 900,
-      height: 900,
+      height: 500,
       delayBetweenSpawn: 1000,
       shapesPerSecond: 2,
       interactiveWorld: true
@@ -39,7 +39,7 @@ class Model extends GameObserver{
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
+    figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawCircle(posX, posY, 50);
     figure.interactive = true;
@@ -57,7 +57,7 @@ class Model extends GameObserver{
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
+    figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawEllipse(posX, posY, 80, 30);
     figure.interactive = true;
@@ -75,8 +75,8 @@ class Model extends GameObserver{
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
 
-    figure.beginFill(bodyColor);
-    figure.lineStyle(2, 0xFFFFFF, 1);
+    figure.beginFill(bodyColor, 0.5);
+    figure.lineStyle(4, 0xFFFFFF, 1);
     figure.moveTo(posX, posY);
     figure.lineTo(posX + 100, posY);
     figure.lineTo(posX + 50, posY + 70);
@@ -98,8 +98,8 @@ class Model extends GameObserver{
     let posY = this.yPositionCalulate(position);
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
-    figure.beginFill(bodyColor);
+    figure.lineStyle(4, 0xFFFFFF, 1);
+    figure.beginFill(bodyColor, 0.5);
     figure.drawRect(posX, posY, 80, 80);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
@@ -116,8 +116,8 @@ class Model extends GameObserver{
     let path = [posX + 40, posY, posX + 10, posY + 30, posX - 30, posY + 30, posX - 30, posY - 30, posX + 10, posY - 30];
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
-    figure.beginFill(bodyColor, 0xFF);
+    figure.lineStyle(4, 0xFFFFFF);
+    figure.beginFill(bodyColor, 0.5);
     figure.drawPolygon(path);
     figure.endFill();
     figure.interactive = true;
@@ -135,7 +135,7 @@ class Model extends GameObserver{
     let path = [posX + 50, posY + 25, posX, posY + 50, posX - 50, posY + 25, posX - 50, posY - 25, posX, posY - 50, posX + 50, posY - 25];
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
+    figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawPolygon(path);
     figure.endFill();
@@ -153,8 +153,8 @@ class Model extends GameObserver{
     let posY = this.yPositionCalulate(position);
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
-    figure.lineStyle(2, 0xFFFFFF, 1);
-    figure.beginFill(bodyColor);
+    figure.lineStyle(4, 0xFFFFFF, 1);
+    figure.beginFill(bodyColor, 0.5);
     figure.drawStar(posX, posY, 5, 50);
     figure.endFill();
     figure.interactive = true;
