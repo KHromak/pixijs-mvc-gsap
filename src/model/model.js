@@ -19,10 +19,6 @@ class Model extends GameObserver{
     }
   }
 
-  interactiveSwitcher () {
-    return this.config.interactiveWorld = !this.config.interactiveWorld
-  }
-
   xPositionCalulate(position) {
     let xPosition;
     return position ?
@@ -43,9 +39,9 @@ class Model extends GameObserver{
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
 
-    figure.lineStyle(2, 0x0000FF, 1);
+    figure.lineStyle(2, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
-    figure.drawCircle(posX, posY, 60);
+    figure.drawCircle(posX, posY, 50);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
     figure.click = () => {
@@ -63,7 +59,7 @@ class Model extends GameObserver{
 
     figure.lineStyle(2, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
-    figure.drawEllipse(posX, posY, 80, 50);
+    figure.drawEllipse(posX, posY, 80, 30);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
     figure.click = () => {
@@ -80,7 +76,7 @@ class Model extends GameObserver{
     let posY = this.yPositionCalulate(position);
 
     figure.beginFill(bodyColor);
-    figure.lineStyle(1, 0xffd900, 1);
+    figure.lineStyle(2, 0xFFFFFF, 1);
     figure.moveTo(posX, posY);
     figure.lineTo(posX + 100, posY);
     figure.lineTo(posX + 50, posY + 70);
@@ -102,9 +98,9 @@ class Model extends GameObserver{
     let posY = this.yPositionCalulate(position);
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
-    figure.lineStyle(2, 0x0000FF, 1);
+    figure.lineStyle(2, 0xFFFFFF, 1);
     figure.beginFill(bodyColor);
-    figure.drawRect(posX, posY, 100, 100);
+    figure.drawRect(posX, posY, 80, 80);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
     figure.click = () => {
@@ -151,17 +147,15 @@ class Model extends GameObserver{
     return figure;
   }
 
-  createRandomShape(position) {
+  createStar(position) {
     let figure = new PIXI.Graphics();
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
-    const randomInt = this.getRandomInRange(10, 20);
-    let path = [posX + randomInt, posY + randomInt, posX, posY + randomInt, posX - randomInt, posY + 10, posX - 10, posY - 5, posX, posY - 15, posX + 20, posY - 25];
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
 
     figure.lineStyle(2, 0xFFFFFF, 1);
     figure.beginFill(bodyColor);
-    figure.drawPolygon(path);
+    figure.drawStar(posX, posY, 5, 50);
     figure.endFill();
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
@@ -172,9 +166,9 @@ class Model extends GameObserver{
   }
 
   //???
-  removeShape(shape) {
-    shape.visiblie = false;
-  }
+  // removeShape(shape) {
+  //   shape.visiblie = false;
+  // }
 
 
   increaseShapesAction() {
@@ -186,6 +180,7 @@ class Model extends GameObserver{
   }
 
   increaseGravityAction() {
+    if(this.config.gravity <= 0.5) return;
     return this.config.gravity -= 0.5
   }
 
@@ -220,7 +215,7 @@ class Model extends GameObserver{
         return this.createHexagon(position);
 
       case 7:
-        return this.createRandomShape(position);
+        return this.createStar(position);
 
       default:
         return this.createCircle(position);
