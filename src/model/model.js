@@ -112,7 +112,7 @@ class Model {
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
-    figure.drawRect(posX, posY, 80, 80);
+    figure.drawRect(posX - 40, posY, 80, 80);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
 
@@ -122,7 +122,7 @@ class Model {
   createPentagon(position) {
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
-    let path = [posX + 40, posY, posX + 10, posY + 30, posX - 30, posY + 30, posX - 30, posY - 30, posX + 10, posY - 30];
+    let path = [posX + 50, posY, posX + 20, posY + 40, posX - 40, posY + 40, posX - 40, posY - 40, posX + 20, posY - 40];
     let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
     let figure = new PIXI.Graphics();
 
