@@ -11,8 +11,6 @@ class View {
 
     constructor(model) {
 
-        // this.model = new Model();
-
         this.model = model;
 
         this.app = new PIXI.Application({
@@ -27,24 +25,24 @@ class View {
     }
 
     startObservers() {
-
-        this.model.subscribe(function initShapeObserver (shape){
+        // this.model.subscribe(e => {
+        //     if (event.name == ''shape) {
+        //         shape.interactive = true;
+        //         // notify the controller about new shape for add handlers
+        //         this.controller.registerNewShape(shape);
           
-            if (shape) {
-                shape.interactive = true;
-                // notify the controller about new shape for add handlers
-          
-                this.app.stage.addChild(shape);
-            }
-        })
+        //         this.app.stage.addChild(shape);
+        //     }
+        // })
 
+        this.model.subscribe((e) => {
+            if (e.gravity) {
+                console.log(e.gravity, 'gravity from view');
 
-        this.model.subscribe(function gravityChangeObserver (e){
-            let element = document.getElementById('gravityValue');
-            if (element) {
-                element.value = e.gravity;
-                console.log(e.gravity, 'e.gravity')
-                console.log(e, 'e')
+                let element = document.getElementById('gravityValue');
+                if(element){
+                    element.value = e.gravity;
+                }
             }
         })
     }
@@ -75,6 +73,10 @@ class View {
                 onComplete: () => this.killShape(drawedShape),
                 ease: Power2.easeIn
             })
+               
+            
+
+            
 
         // t.duration(this.model.config.gravity)
     }
