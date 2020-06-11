@@ -9,9 +9,11 @@ import Controller from '../controller/controller';
 
 class View {
 
-    constructor() {
+    constructor(model) {
 
-        this.model = new Model();
+        // this.model = new Model();
+
+        this.model = model;
 
         this.app = new PIXI.Application({
             width: this.model.config.width,
@@ -27,11 +29,10 @@ class View {
     startObservers() {
 
         this.model.subscribe(function initShapeObserver (shape){
-    console.log(shape)
+          
             if (shape) {
                 shape.interactive = true;
                 // notify the controller about new shape for add handlers
-                this.controller.registerNewShape(shape);
           
                 this.app.stage.addChild(shape);
             }
@@ -74,10 +75,6 @@ class View {
                 onComplete: () => this.killShape(drawedShape),
                 ease: Power2.easeIn
             })
-               
-            
-
-            
 
         // t.duration(this.model.config.gravity)
     }

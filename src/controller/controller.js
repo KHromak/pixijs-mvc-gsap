@@ -5,15 +5,13 @@
  * the model changes.
  */
 import Model from '../model/model';
-import View from '../view/view';
-
 
 class Controller {
     
     constructor(model, view) {
-       
-        this.model = new Model();
-        this.view = new View();
+
+        this.model = model;
+        this.view = view;
 
         this.numberOfShapes = document.querySelector('#numberOfShapes');
         this.occupiedArea = document.querySelector('#occupiedArea');
@@ -45,7 +43,7 @@ class Controller {
         this.increaseGravity.addEventListener('click', (e) => {
             this.model.increaseGravityAction();
             this.model.broadcast({gravity: this.model.config.gravity})
-            console.log(this.model.config.gravity, 'gravity')
+            console.log(this.model.config.gravity, 'gravity from controller')
         });
     }
 

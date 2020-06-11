@@ -5,14 +5,11 @@
 
 import GameObserver from '../observer/gameObserver';
 
-
 class Model extends GameObserver{
   constructor() {
-
     super();
     this.observer = new GameObserver();
     this.config = {
-
       gravity: 7,
       width: 900,
       height: 900,
@@ -20,8 +17,6 @@ class Model extends GameObserver{
       shapesPerSecond: 2,
       interactiveWorld: true
     }
-
-
   }
 
   interactiveSwitcher () {
@@ -176,7 +171,6 @@ class Model extends GameObserver{
     return figure;
   }
 
-
   //???
   removeShape(shape) {
     shape.visiblie = false;
@@ -233,14 +227,6 @@ class Model extends GameObserver{
 
     }
   }
-
-
-
-
-
-
-
-
 }
 
 export default Model;

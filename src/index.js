@@ -1,9 +1,11 @@
 import Model from './model/model';
+import View from './view/view';
 import Controller from './controller/controller';
 
 const main = () => {
-    const model = new Model();
-    const controller = new Controller(model);
+    let model = new Model();
+    let view = new View(model);
+    const controller = new Controller(model, view);
 };
 
 window.onload = main;
