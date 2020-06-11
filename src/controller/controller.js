@@ -13,54 +13,17 @@ class Controller {
         this.model = model;
         this.view = view;
 
-        this.numberOfShapes = document.querySelector('#numberOfShapes');
-        this.occupiedArea = document.querySelector('#occupiedArea');
-        this.increaseShapes = document.querySelector('#increaseShapes');
-        this.decreaseShapes = document.querySelector('#decreaseShapes');
-        this.increaseGravity = document.querySelector('#increaseGravity');
-        this.decreaseGravity = document.querySelector('#decreaseGravity');
+        this.view.onIncreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond + 1));
+        this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond - 1));
 
-        this.initGame();
-    }
+        this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
+        this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity - 0.5));
 
-    initGame() {
-
-        this.model.broadcast({ gravity: this.model.config.gravity });
-        this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond });
-
-        this.view.app.stage.on('click', (e) => {
-            let position = (e.data.global);
+        this.view.onWhiteSpaceClicked.subscribe(position => {
             this.view.fallDownShape(this.model.randomShapePicker(position));
         });
 
-        this.view.interactive();
-        this.buttonListeners();
         this.startSpawingShapes();
-    }
-
-    buttonListeners() {
-        this.increaseGravity.addEventListener('click', (e) => {
-            this.model.increaseGravityAction();
-            this.model.broadcast({ gravity: this.model.config.gravity })
-        });
-
-        this.decreaseGravity.addEventListener('click', (e) => {
-            this.model.decreaseGravityAction();
-            this.model.broadcast({ gravity: this.model.config.gravity })
-        });
-
-        this.increaseShapes.addEventListener('click', (e) => {
-            this.model.increaseShapesAction();
-            console.log(this.model.config.shapesPerSecond, 'shapes from control')
-            this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond })
-        });
-
-        this.decreaseShapes.addEventListener('click', (e) => {
-            this.model.decreaseShapesAction();
-            console.log(this.model.config.shapesPerSecond, 'shapes from control')
-            this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond })
-        });
-
     }
 
     createShapes(shapesPerSecond) {
@@ -72,26 +35,9 @@ class Controller {
 
     startSpawingShapes() {
         setInterval(() => {
-            this.createShapes(this.model.config.shapesPerSecond);
+            this.createShapes(this.model.shapesPerSecond);
         }, this.model.config.delayBetweenSpawn);
     }
-
-    // registerNewShape(shape) {
-
-    //     if (shape) {
-    //         shape.on('click', () => {
-    //             this.model.removeShape(shape);
-    //         });
-    //     }
-    // }
-
-    // setHitAreaOnShape() {
-    //     figure.hitArea = figure.getBounds();
-    // }
-
-    // initShape () {
-    //     let figure = new PIXI.Graphics();
-    // }
 
 }
 

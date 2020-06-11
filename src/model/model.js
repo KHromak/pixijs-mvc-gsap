@@ -3,20 +3,32 @@
  * The model is decoupled from the views and controller.
  */
 
-import GameObserver from '../observer/gameObserver';
+import Observer from '../observer/observer';
 
-class Model extends GameObserver{
+class Model {
   constructor() {
-    super();
-    this.observer = new GameObserver();
+    this.onGravityChanged = new Observer();
+    this.onShapesChanged = new Observer();
+
+    this.gravity = 7;
+    this.shapesPerSecond = 2;
+
     this.config = {
-      gravity: 7,
       width: 900,
       height: 500,
       delayBetweenSpawn: 1000,
       shapesPerSecond: 2,
-      interactiveWorld: true
-    }
+    };
+  }
+
+  setGravity(value) {
+    this.gravity = value;
+    this.onGravityChanged.notify();
+  }
+
+  setShapesPerSecond(value) {
+    this.shapesPerSecond = value;
+    this.onShapesChanged.notify();
   }
 
   xPositionCalulate(position) {
@@ -34,46 +46,42 @@ class Model extends GameObserver{
   }
 
   createCircle(position) {
-    let figure = new PIXI.Graphics();
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawCircle(posX, posY, 50);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
     figure.endFill();
+
     return figure;
   }
 
   createEllipse(position) {
-    let figure = new PIXI.Graphics();
     const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawEllipse(posX, posY, 80, 30);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
     figure.endFill();
+
     return figure;
   }
 
   createTriangle(position) {
-    let figure = new PIXI.Graphics();
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
+    let figure = new PIXI.Graphics();
 
     figure.beginFill(bodyColor, 0.5);
     figure.lineStyle(4, 0xFFFFFF, 1);
@@ -85,36 +93,31 @@ class Model extends GameObserver{
     figure.endFill();
     figure.interactive = false;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
 
     return figure;
   }
 
   createRect(position) {
-    let figure = new PIXI.Graphics();
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
     figure.drawRect(posX, posY, 80, 80);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
+
     return figure;
   }
 
   createPentagon(position) {
-    let figure = new PIXI.Graphics();
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
     let path = [posX + 40, posY, posX + 10, posY + 30, posX - 30, posY + 30, posX - 30, posY - 30, posX + 10, posY - 30];
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF);
     figure.beginFill(bodyColor, 0.5);
@@ -122,18 +125,16 @@ class Model extends GameObserver{
     figure.endFill();
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
+  
     return figure;
   }
 
   createHexagon(position) {
-    let figure = new PIXI.Graphics();
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
     let path = [posX + 50, posY + 25, posX, posY + 50, posX - 50, posY + 25, posX - 50, posY - 25, posX, posY - 50, posX + 50, posY - 25];
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
@@ -141,17 +142,15 @@ class Model extends GameObserver{
     figure.endFill();
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
+
     return figure;
   }
 
   createStar(position) {
-    let figure = new PIXI.Graphics();
     let posX = this.xPositionCalulate(position);
     let posY = this.yPositionCalulate(position);
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
+    let figure = new PIXI.Graphics();
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
@@ -159,33 +158,8 @@ class Model extends GameObserver{
     figure.endFill();
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-    figure.click = () => {
-      figure.visible = false;
-    }
+
     return figure;
-  }
-
-  //???
-  // removeShape(shape) {
-  //   shape.visiblie = false;
-  // }
-
-
-  increaseShapesAction() {
-    return this.config.shapesPerSecond += 1
-  }
-
-  decreaseShapesAction() {
-    return this.config.shapesPerSecond -= 1
-  }
-
-  increaseGravityAction() {
-    if(this.config.gravity <= 0.5) return;
-    return this.config.gravity -= 0.5
-  }
-
-  decreaseGravityAction() {
-    return this.config.gravity += 0.5
   }
 
   getRandomInRange(min, max) {
