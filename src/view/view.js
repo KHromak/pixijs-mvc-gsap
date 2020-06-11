@@ -101,7 +101,6 @@ class View {
         this.app.stage.addChild(shape);
 
         shape.on('click', e => {
-            debugger;
             e.stopPropagation();
             this.onShapeClicked.notify(shape);
         });
@@ -109,15 +108,7 @@ class View {
         let args = {
             y: this.model.config.height - shape.hitArea.y,
             onComplete: () => this.onShapeExit.notify(shape),
-            ease: Linear.easeNone,
-            onUpdate: () => {
-                // debugger;
-                // console.log(shape.position.y);
-
-                // if (shape.position.y + shape.hitArea.y >= this.model.config.height) {
-                //     this.onShapeExit.notify(shape);
-                // }
-            }
+            ease: Linear.easeNone
         };
 
         TweenMax.to(shape, this.model.gravity, args);
