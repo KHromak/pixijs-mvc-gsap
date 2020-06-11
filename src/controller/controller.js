@@ -7,7 +7,7 @@
 import Model from '../model/model';
 
 class Controller {
-    
+
     constructor(model, view) {
 
         this.model = model;
@@ -24,10 +24,9 @@ class Controller {
     }
 
     initGame() {
-        
 
-        this.model.broadcast({gravity: this.model.config.gravity});
-        this.model.broadcast({shapesPerSecond: this.model.config.shapesPerSecond});
+        this.model.broadcast({ gravity: this.model.config.gravity });
+        this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond });
 
         this.view.app.stage.on('click', (e) => {
             let position = (e.data.global);
@@ -42,9 +41,26 @@ class Controller {
     buttonListeners() {
         this.increaseGravity.addEventListener('click', (e) => {
             this.model.increaseGravityAction();
-            this.model.broadcast({gravity: this.model.config.gravity})
-            console.log(this.model.config.gravity, 'gravity from controller')
+            this.model.broadcast({ gravity: this.model.config.gravity })
         });
+
+        this.decreaseGravity.addEventListener('click', (e) => {
+            this.model.decreaseGravityAction();
+            this.model.broadcast({ gravity: this.model.config.gravity })
+        });
+
+        this.increaseShapes.addEventListener('click', (e) => {
+            this.model.increaseShapesAction();
+            console.log(this.model.config.shapesPerSecond, 'shapes from control')
+            this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond })
+        });
+
+        this.decreaseShapes.addEventListener('click', (e) => {
+            this.model.decreaseShapesAction();
+            console.log(this.model.config.shapesPerSecond, 'shapes from control')
+            this.model.broadcast({ shapesPerSecond: this.model.config.shapesPerSecond })
+        });
+
     }
 
     createShapes(shapesPerSecond) {
@@ -60,7 +76,7 @@ class Controller {
         }, this.model.config.delayBetweenSpawn);
     }
 
-    registerNewShape (shape) {
+    registerNewShape(shape) {
 
         if (shape) {
             shape.on('click', () => {

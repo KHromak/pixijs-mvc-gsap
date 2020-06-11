@@ -44,6 +44,17 @@ class View {
                     element.value = e.gravity;
                 }
             }
+        }),
+
+        this.model.subscribe((e) => {
+            if (e.shapesPerSecond) {
+                console.log(e.shapesPerSecond, 'shapesPerSecond from view');
+
+                let element = document.getElementById('shapesValue');
+                if(element){
+                    element.value = e.shapesPerSecond;
+                }
+            }
         })
     }
 

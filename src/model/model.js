@@ -172,11 +172,11 @@ class Model extends GameObserver{
 
 
   increaseShapesAction() {
-    this.config.shapes += 1
+    return this.config.shapesPerSecond += 1
   }
 
   decreaseShapesAction() {
-    return this.config.shapes -= 1
+    return this.config.shapesPerSecond -= 1
   }
 
   increaseGravityAction() {
@@ -185,7 +185,7 @@ class Model extends GameObserver{
   }
 
   decreaseGravityAction() {
-    return this.config.gravity -= 1
+    return this.config.gravity += 0.5
   }
 
   getRandomInRange(min, max) {
