@@ -3,12 +3,16 @@ $descr-padding: 10px;
 $button-padding: 10px;
 $button-border: 2px solid blue;
 $button-bg-color: #1099bb;
+$input-button-radius: 8px;
 
 body {
   color: $body-color;
 }
 
 .game {
+
+    max-width: 1200px;
+    width: 100%;
 
     &__current {
         max-width: 1200px;
@@ -21,21 +25,29 @@ body {
             width: 100%;
             border: $button-border;
             padding: $descr-padding;
+            margin: 0 5px 10px 0;
         }
 
         .button {
             background-color: $button-bg-color;
             padding: $button-padding;
-            max-width: 20px;
+            max-width: 40px;
             width: 100%;
             border: $button-border;
-            border-radius: 8px;
+            border-radius: $input-button-radius;
         }
 
         .description {
             padding: $descr-padding;
             border: $button-border;
         }
+
+        .radius {
+            border-radius: $input-button-radius;
+            margin-right: 5px;
+        }
+
+        
     }
 
     &__screen {

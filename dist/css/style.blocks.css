@@ -2,6 +2,10 @@ body {
   color: blue;
 }
 
+.game {
+  max-width: 1200px;
+  width: 100%;
+}
 .game__current {
   max-width: 1200px;
   width: 100%;
@@ -13,11 +17,12 @@ body {
   width: 100%;
   border: 2px solid blue;
   padding: 10px;
+  margin: 0 5px 10px 0;
 }
 .game__current .button {
   background-color: #1099bb;
   padding: 10px;
-  max-width: 20px;
+  max-width: 40px;
   width: 100%;
   border: 2px solid blue;
   border-radius: 8px;
@@ -25,6 +30,10 @@ body {
 .game__current .description {
   padding: 10px;
   border: 2px solid blue;
+}
+.game__current .radius {
+  border-radius: 8px;
+  margin-right: 5px;
 }
 .game__screen {
   max-width: 1200px;

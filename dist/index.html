@@ -19,19 +19,20 @@
 
     <div class='game'>
         <div class='game__current'>
-            <div class='game__current-shapes score'  id='numberOfShapes'></div>
-            <div class='game__current-area score'  id='occupiedArea'></div>
+            <input class='game__current-shapes score radius'  id='numberOfShapes'></input>
+            <input class='game__current-area score radius'  id='occupiedArea'></input>
         </div>
         
         <div class='game__screen' id='gameScreen'></div>
         <div class='game__current'>
-            <div class='game__shapes-decr button' type='button' id='decreaseShapes'>-</div>
-            <div class='game__shapes-incr button' type='button' id='increaseShapes'>+</div>
-            <div class='game__shapes-description description'>Number of shapes per sec</div>
-            <div class='game__gravity-decr button' type='button' id='decreaseGravity'>-</div>
+            <button class='game__shapes-decr button' type='button' id='decreaseShapes'>-</button>
+            <button class='game__shapes-incr button' type='button' id='increaseShapes'>+</button>
+            <div class='game__shapes-description description radius'>Number of shapes per sec</div>
+            <input class='game__shapes-value description radius' id='shapesValue'></input>
+            <button class='game__gravity-decr button' type='button' id='decreaseGravity'>-</button>
             <button class='game__gravity-incr button' type='button' id='increaseGravity'>+</button>
-            <div class='game__gravity-description description'>Gravity Value</div>
-            <input class='game__gravity-value description' id='gravityValue'></input>
+            <div class='game__gravity-description description radius'>Gravity Value</div>
+            <input class='game__gravity-value description radius' id='gravityValue'></input>
         </div>
         
 
