@@ -4,7 +4,7 @@
  */
 
 import Observer from '../observer/observer';
-import TweenMax from '../../pixijs/TweenMax';
+import TweenMax from '../../graphics/TweenMax';
 
 class View {
 
