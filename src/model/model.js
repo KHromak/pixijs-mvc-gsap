@@ -98,7 +98,7 @@ class Model {
     figure.lineTo(posX, posY);
     figure.closePath();
     figure.endFill();
-    figure.interactive = false;
+    figure.interactive = true;
     figure.hitArea = figure.getBounds();
 
     return figure;
