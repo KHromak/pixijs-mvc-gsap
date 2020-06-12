@@ -49,24 +49,28 @@ class Controller {
             this.model.config.delayBetweenSpawn);
 
         setInterval(() =>
-            this.updateDisplayed(),
+            this.enumerateVisibleShapes(),
             100);
     }
 
-    updateDisplayed() {
-        let counter = 0;
+    enumerateVisibleShapes() {
+        let count = 0;
+        let square = 0;
+
         this.shapes.forEach(shape => {
             let position = shape.position.y + shape.hitArea.y;
             let topPosition = position - shape.height;
             let bottomPosition = position + shape.height;
 
-            if (bottomPosition >= 0 && topPosition <= this.model.config.height) {
-                counter++;
+            if (bottomPosition > 0 && topPosition < this.model.config.height) {
+                count++;
+                square += shape.width * shape.height;
             }
         });
-        this.model.setDisplayed(counter);
-    }
 
+        this.model.setCount(count);
+        this.model.setSquare(Math.round(square));
+    }
 }
 
 export default Controller;

@@ -63,7 +63,8 @@ class View {
     updateInputs() {
         this.updateShapes();
         this.updateGravity();
-        this.updateDisplayed();
+        this.updateCount();
+        this.updateSquare();
     }
 
     updateShapes() {
@@ -74,14 +75,19 @@ class View {
         this.gravityInput.value = this.model.gravity;
     }
 
-    updateDisplayed() {
-        this.numberOfShapes.value = this.model.displayed;
+    updateCount() {
+        this.numberOfShapes.value = this.model.count;
+    }
+
+    updateSquare() {
+        this.occupiedArea.value = this.model.square;
     }
 
     subscribeModel() {
         this.model.onShapesChanged.subscribe(() => this.updateShapes());
         this.model.onGravityChanged.subscribe(() => this.updateGravity());
-        this.model.onDisplayedChanged.subscribe(() => this.updateDisplayed());
+        this.model.onCountChanged.subscribe(() => this.updateCount());
+        this.model.onSquareChanged.subscribe(() => this.updateSquare());
     }
 
     initialize() {

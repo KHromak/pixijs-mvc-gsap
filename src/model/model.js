@@ -9,11 +9,13 @@ class Model {
   constructor() {
     this.onGravityChanged = new Observer();
     this.onShapesChanged = new Observer();
-    this.onDisplayedChanged = new Observer();
+    this.onCountChanged = new Observer();
+    this.onSquareChanged = new Observer();
 
     this.gravity = 3;
     this.shapesPerSecond = 2;
-    this.displayed = 0;
+    this.count = 0;
+    this.square = 0;
 
     this.config = {
       width: 900,
@@ -32,9 +34,14 @@ class Model {
     this.onShapesChanged.notify();
   }
 
-  setDisplayed(value) {
-    this.displayed = value;
-    this.onDisplayedChanged.notify();
+  setCount(value) {
+    this.count = value;
+    this.onCountChanged.notify();
+  }
+
+  setSquare(value) {
+    this.square = value;
+    this.onSquareChanged.notify();
   }
 
   xPositionCalulate(position) {
@@ -94,7 +101,7 @@ class Model {
     figure.moveTo(posX, posY);
     figure.lineTo(posX + 50, posY);
     figure.lineTo(posX, posY + 70);
-    figure.lineTo(posX -50, posY);
+    figure.lineTo(posX - 50, posY);
     figure.closePath();
     figure.endFill();
     figure.interactive = true;
@@ -131,7 +138,7 @@ class Model {
     figure.endFill();
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
-  
+
     return figure;
   }
 
