@@ -14,10 +14,18 @@ class Controller {
         this.shapes = [];
 
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
-        this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity - 0.5));
+        this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(
+            this.model.gravity > 0.5?
+            this.model.gravity - 0.5:
+            this.model.gravity = 0.5
+            ));
 
         this.view.onIncreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond + 1));
-        this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond - 1));
+        this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(
+            this.model.shapesPerSecond > 1?
+            this.model.shapesPerSecond - 1:
+            this.model.shapesPerSecond = 1
+            ));
 
         this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
         this.view.onShapeClicked.subscribe(shape => this.removeShape(shape));
