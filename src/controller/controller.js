@@ -5,13 +5,18 @@
  * the model changes.
  */
 
+import Shape from "../shape/shape";
+import Hexagon from "../shape/hexagon/hexagon";
+
 class Controller {
 
     constructor(model, view) {
 
         this.model = model;
         this.view = view;
+        // this.shapeClass = new Shape();
         this.shapes = [];
+        this.hexagon = new Hexagon();
 
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
         this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(
@@ -35,9 +40,47 @@ class Controller {
     }
 
     drawRandomShape(position) {
-        let shape = this.model.randomShapePicker(position);
+        // let shape = this.model.randomShapePicker(position);
+        let shape = this.randomShapePicker(position);
         this.view.drawShape(shape);
         this.shapes.push(shape);
+    }
+
+    randomShapePicker(position) {
+        // let randomShape = this.getRandomInRange(1, 7);
+
+        let randomShape = 6;
+ 
+        switch (randomShape) {
+            // case 1:
+            //     return this.createCircle(position);
+
+            // case 2:
+            //     return this.createEllipse(position);
+
+            // case 3:
+            //     return this.createTriangle(position);
+
+            // case 4:
+            //     return this.createRect(position);
+
+            // case 5:
+            //     return this.createPentagon(position);
+
+            case 6:
+                return this.hexagon.createHexagon(position);
+                 
+
+
+            // case 7:
+            //     return this.createStar(position);
+
+            // default:
+            //     return this.createCircle(position);
+            default:
+                return this.hexagon.createHexagon(position);
+
+        }
     }
 
     removeShape(shape) {
