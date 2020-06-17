@@ -1,16 +1,15 @@
-$body-color: blue;
+$body-color: #000;
 $descr-padding: 10px;
 $button-padding: 10px;
-$button-border: 2px solid blue;
-$button-bg-color: #1099bb;
+$button-border: 3px solid #000;
+$button-bg-color: #ffffff;
 $input-button-radius: 8px;
 
 body {
-  color: $body-color;
+    color: $body-color;
 }
 
 .game {
-
     max-width: 1200px;
     width: 100%;
 
@@ -31,23 +30,37 @@ body {
         .button {
             background-color: $button-bg-color;
             padding: $button-padding;
-            max-width: 40px;
+            max-width: 60px;
+            height: 50px;
             width: 100%;
             border: $button-border;
-            border-radius: $input-button-radius;
-            margin-right: 5px;
+            font-size: 40px;
+            color: #1e90ff;
+            line-height: 0.1;
+            font-weight: 700;
+
+            &--left {
+                border-radius: 16px 0 0 16px;
+            }
+
+            &--right {
+                border-radius: 0 16px 16px 0;
+                margin-right: 5px;
+            }
         }
 
         .description {
             padding: $descr-padding;
             border: $button-border;
+            max-width: 130px;
+            line-height: 0.8;
         }
 
         .radius {
             border-radius: $input-button-radius;
             margin-right: 5px;
         }
-        
+ 
     }
 
     &__screen {
@@ -55,5 +68,4 @@ body {
         width: 100%;
         height: auto;
     }
-
 }
