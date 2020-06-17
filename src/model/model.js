@@ -4,8 +4,6 @@
  */
 
 import Observer from '../observer/observer';
-import Hexagon from '../shape/hexagon/hexagon';
-import Shape from '../shape/shape';
 
 class Model {
   constructor() {
@@ -13,10 +11,6 @@ class Model {
     this.onShapesChanged = new Observer();
     this.onCountChanged = new Observer();
     this.onSquareChanged = new Observer();
-
-    // this.hexagon = new Hexagon();
-    // this.shape = new Shape(this.config.width, )
-
 
     this.gravity = 3;
     this.shapesPerSecond = 2;
@@ -50,12 +44,10 @@ class Model {
     this.onSquareChanged.notify();
   }
  
-
   getRandomInRange(min, max) {
     return Math.round((Math.random() * (max - min) + min));
   }
-
-  
+   
 }
 
 export default Model;
