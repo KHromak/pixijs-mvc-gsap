@@ -1,12 +1,14 @@
+
 import Shape from '../shape'
 
-class Star extends Shape {
+class Rectangle extends Shape {
 
   constructor() {
     super();
   }
 
-  createStar(position) {
+  createRect(position) {
+
     let posX = super.xPositionCalulate(position);
     let posY = super.yPositionCalulate(position);
     let bodyColor = super.generateBodyColor();
@@ -14,8 +16,7 @@ class Star extends Shape {
 
     figure.lineStyle(4, 0xFFFFFF, 1);
     figure.beginFill(bodyColor, 0.5);
-    figure.drawStar(posX, posY, 5, 50);
-    figure.endFill();
+    figure.drawRect(posX - 40, posY, 80, 80);
     figure.interactive = true;
     figure.hitArea = figure.getBounds();
 
@@ -24,4 +25,4 @@ class Star extends Shape {
 
 }
 
-export default Star;
+export default Rectangle;

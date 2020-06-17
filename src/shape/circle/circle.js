@@ -1,15 +1,30 @@
-createCircle(position) {
-    const bodyColor = Math.floor(Math.random() * 0xFFFFFF);
-    let posX = this.xPositionCalulate(position);
-    let posY = this.yPositionCalulate(position);
-    let figure = new PIXI.Graphics();
+import Shape from '../shape'
 
-    figure.lineStyle(4, 0xFFFFFF, 1);
-    figure.beginFill(bodyColor, 0.5);
-    figure.drawCircle(posX, posY, 50);
-    figure.interactive = true;
-    figure.hitArea = figure.getBounds();
-    figure.endFill();
+class Circle extends Shape {
 
-    return figure;
-  }
+    constructor() {
+        super();
+       
+    }
+
+    createCircle(position) {
+
+      let posX = super.xPositionCalulate(position);
+      let posY = super.yPositionCalulate(position);
+      let bodyColor = super.generateBodyColor();
+
+      let figure = new PIXI.Graphics();
+      figure.lineStyle(4, 0xFFFFFF, 1);
+      figure.beginFill(bodyColor, 0.5);
+      figure.drawCircle(posX, posY, 50);
+      figure.interactive = true;
+      figure.hitArea = figure.getBounds();
+      figure.endFill();
+  
+      return figure;
+    }
+
+}
+
+export default Circle;
+

@@ -5,13 +5,29 @@
  * the model changes.
  */
 
+import Shape from "../shape/shape";
+import Circle from "../shape/circle/circle";
+import Ellipse from "../shape/ellipse/ellipse";
+import Triangle from "../shape/triangle/triangle";
+import Rectangle from "../shape/rectangle/rectangle";
+import Pentagon from "../shape/pentagon/pentagon";
+import Hexagon from "../shape/hexagon/hexagon";
+import Star from "../shape/star/star";
+
+
 class Controller {
 
-    constructor(model, view, shape, hexagon) {
-        this.shape = shape
+    constructor(model, view) {
         this.model = model;
         this.view = view;
-        this.hexagon = hexagon;
+        this.shape = new Shape()
+        this.circle = new Circle();
+        this.ellipse = new Ellipse();
+        this.triangle = new Triangle();
+        this.rectangle = new Rectangle();
+        this.pentagon = new Pentagon();
+        this.hexagon = new Hexagon();
+        this.star = new Star();
 
         this.shapes = [];
 
@@ -83,36 +99,32 @@ class Controller {
     }
 
     randomShapePicker(position) {
-        // let randomShape = this.getRandomInRange(1, 7);
-    
-        let randomShape = 6;
-    
+        let randomShape = this.model.getRandomInRange(1, 7);
+
         switch (randomShape) {
-            // case 1:
-            //     return this.createCircle(position);
+            case 1:
+                return this.circle.createCircle(position);
     
-            // case 2:
-            //     return this.createEllipse(position);
+            case 2:
+                return this.ellipse.createEllipse(position);
     
-            // case 3:
-            //     return this.createTriangle(position);
+            case 3:
+                return this.triangle.createTriangle(position);
     
-            // case 4:
-            //     return this.createRect(position);
+            case 4:
+                return this.rectangle.createRect(position);
     
-            // case 5:
-            //     return this.createPentagon(position);
+            case 5:
+                return this.pentagon.createPentagon(position);
     
             case 6:
                 return this.hexagon.createHexagon(position);
                  
-            // case 7:
-            //     return this.createStar(position);
+            case 7:
+                return this.star.createStar(position);
     
-            // default:
-            //     return this.createCircle(position);
             default:
-                return this.hexagon.createHexagon(position);
+                return this.circle.createCircle(position);
     
         }
     }
