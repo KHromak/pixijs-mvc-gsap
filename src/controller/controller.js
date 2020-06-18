@@ -18,6 +18,15 @@ import Star from "../shape/star/star";
 class Controller {
 
     constructor(model, view) {
+
+        this.fps = 15;
+
+
+
+
+
+
+
         this.model = model;
         this.view = view;
         this.shape = new Shape()
@@ -33,29 +42,32 @@ class Controller {
 
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
         this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(
-            this.model.gravity > 0.5?
-            this.model.gravity - 0.5:
-            this.model.gravity = 0.5
-            ));
+            this.model.gravity > 0.5 ?
+                this.model.gravity - 0.5 :
+                this.model.gravity = 0.5
+        ));
 
         this.view.onIncreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond + 1));
         this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(
-            this.model.shapesPerSecond > 1?
-            this.model.shapesPerSecond - 1:
-            this.model.shapesPerSecond = 1
-            ));
+            this.model.shapesPerSecond > 1 ?
+                this.model.shapesPerSecond - 1 :
+                this.model.shapesPerSecond = 1
+        ));
 
         this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
         this.view.onShapeClicked.subscribe(shape => this.removeShape(shape));
         this.view.onShapeExit.subscribe(shape => this.removeShape(shape));
 
-        this.startSpawningShapes();
+        this.startSpawningShapes()
     }
 
     drawRandomShape(position) {
         let shape = this.randomShapePicker(position);
         this.view.drawShape(shape);
         this.shapes.push(shape);
+        this.view.ticker.add(this.drawShape);
+        this.view.ticker.start();
+
     }
 
     removeShape(shape) {
@@ -78,6 +90,9 @@ class Controller {
             this.enumerateVisibleShapes(),
             100);
     }
+
+
+ 
 
     enumerateVisibleShapes() {
         let count = 0;
@@ -104,28 +119,28 @@ class Controller {
         switch (randomShape) {
             case 1:
                 return this.circle.createCircle(position);
-    
+
             case 2:
                 return this.ellipse.createEllipse(position);
-    
+
             case 3:
                 return this.triangle.createTriangle(position);
-    
+
             case 4:
                 return this.rectangle.createRect(position);
-    
+
             case 5:
                 return this.pentagon.createPentagon(position);
-    
+
             case 6:
                 return this.hexagon.createHexagon(position);
-                 
+
             case 7:
                 return this.star.createStar(position);
-    
+
             default:
                 return this.circle.createCircle(position);
-    
+
         }
     }
 }
