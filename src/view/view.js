@@ -11,24 +11,14 @@ class View {
     constructor(model) {
         this.model = model;
 
-        // this.app = new PIXI.Application({
-        //     width: this.model.config.width,
-        //     height: this.model.config.height,
-        //     backgroundColor: 0x1099bb,
-        // });
-
-        // this.app.renderer.autoResize = true;
-        // document.getElementById('gameScreen').appendChild(this.app.renderer.view);
-
-        this.canvas = document.getElementById('gameScreenCanvas')
-        this.renderer = new PIXI.Renderer({
-            view: this.canvas,
+        this.app = new PIXI.Application({
             width: this.model.config.width,
-            height: this.model.config.height
-        })
+            height: this.model.config.height,
+            backgroundColor: 0x1099bb,
+        });
 
-        this.stage = new PIXI.Container()
-        this.ticker = new PIXI.Ticker()
+        this.app.renderer.autoResize = true;
+        document.getElementById('gameScreen').appendChild(this.app.renderer.view);
 
         this.initialize();
     }
@@ -64,10 +54,10 @@ class View {
         this.increaseGravity.addEventListener('click', () => this.onIncreaseGravity.notify());
         this.decreaseGravity.addEventListener('click', () => this.onDecreaseGravity.notify());
 
-        // this.app.stage.on('click', e => {
-        //     let position = e.data.global;
-        //     this.onCanvasClicked.notify(position);
-        // });
+        this.app.stage.on('click', e => {
+            let position = e.data.global;
+            this.onCanvasClicked.notify(position);
+        });
     }
 
     updateInputs() {
@@ -108,27 +98,13 @@ class View {
 
         this.addListeners();
 
-
-
-       
-       
-
-
-
-
-        // this.app.stage.interactive = true;
-        // this.app.stage.buttonMode = true;
-        // this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
-    
+        this.app.stage.interactive = true;
+        this.app.stage.buttonMode = true;
+        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
     }
 
     drawShape(shape) {
-        
-
-
-        // this.app.stage.addChild(shape);
-        this.stage.addChild(shape)
-
+        this.app.stage.addChild(shape);
 
         shape.on('click', e => {
             e.stopPropagation();
@@ -142,15 +118,10 @@ class View {
         };
 
         TweenMax.to(shape, this.model.gravity, args);
-        
-
-
-
-        this.renderer.render(this.stage)
     }
 
     removeShape(shape) {
-        // this.app.stage.removeChild(shape);
+        this.app.stage.removeChild(shape);
     }
 }
 

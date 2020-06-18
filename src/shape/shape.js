@@ -1,23 +1,35 @@
-import Model from '../model/model'
-
 class Shape {
-    constructor() {
-        this.model = new Model();
+
+    constructor(position) {
+        this.x = position.x;
+        this.y = position.y;
+
+        this.color = this.getColor();
+        this.figure = new PIXI.Graphics();
+        this.figure.interactive = true;
+
+        this.setLineStyle(this.figure);
+        this.beginFill(this.figure);
+        this.draw();
+
+        this.figure.hitArea = this.figure.getBounds();
+        this.figure.endFill();
     }
 
-    xPositionCalulate(position) {
-        return position ? position.x : this.model.getRandomInRange(0, this.model.config.width);
+    draw() {
     }
 
-    yPositionCalulate(position) {
-        return position ? position.y : this.model.getRandomInRange(-500, -80);
+    setLineStyle() {
+        this.figure.lineStyle(4, 0xFFFFFF, 1);
     }
 
-    generateBodyColor() {
-        let bodyColor = Math.floor(Math.random() * 0xFFFFFF);
-        return bodyColor;
+    beginFill() {
+        this.figure.beginFill(this.color, 0.5);
     }
 
+    getColor() {
+        return Math.floor(Math.random() * 0xFFFFFF);
+    }
 }
 
-export default Shape
+export default Shape;

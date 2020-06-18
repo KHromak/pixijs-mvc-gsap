@@ -4,6 +4,9 @@
  */
 
 import Observer from '../observer/observer';
+import Circle from '../shape/circle';
+import Ellipse from '../shape/ellipse';
+import Hexagon from '../shape/hexagon';
 
 class Model {
   constructor() {
@@ -20,17 +23,17 @@ class Model {
     this.config = {
       width: 900,
       height: 500,
-      delayBetweenSpawn: 1000,
+      delayBetweenSpawn: 1,
     };
   }
 
   setGravity(value) {
-    this.gravity = value;
+    this.gravity = Math.max(0, value);
     this.onGravityChanged.notify();
   }
 
   setShapesPerSecond(value) {
-    this.shapesPerSecond = value;
+    this.shapesPerSecond = Math.max(0, value);
     this.onShapesChanged.notify();
   }
 
@@ -43,11 +46,32 @@ class Model {
     this.square = value;
     this.onSquareChanged.notify();
   }
- 
+
   getRandomInRange(min, max) {
     return Math.round((Math.random() * (max - min) + min));
   }
-   
+
+  getRandomSpawnPosition() {
+    return {
+      x: this.getRandomInRange(0, this.config.width),
+      y: this.getRandomInRange(-500, -80),
+    };
+  }
+
+  createRandomShape(position) {
+    let rand = this.getRandomInRange(1, 7);
+
+    switch (rand) {
+      case 1: return new Circle(position);
+      case 2: return new Ellipse(position);
+      // case 3: return this.triangle.createTriangle(position);
+      // case 4: return this.rectangle.createRect(position);
+      // case 5: return this.pentagon.createPentagon(position);
+      case 6: return new Hexagon(position);
+      // case 7: return this.star.createStar(position);
+      default: return new Circle(position);
+    }
+  }
 }
 
 export default Model;
