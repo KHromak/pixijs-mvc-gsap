@@ -1,23 +1,20 @@
-import Shape from '../shape'
+import Shape from './shape'
 
 class Pentagon extends Shape {
 
-  createPentagon(position) {
+  constructor(position) {
+    super(position)
+  }
 
-    let posX = super.xPositionCalulate(position);
-    let posY = super.yPositionCalulate(position);
-    let bodyColor = super.generateBodyColor();
-    let path = [posX + 50, posY, posX + 20, posY + 40, posX - 40, posY + 40, posX - 40, posY - 40, posX + 20, posY - 40];
+  draw() {
+    this.figure.drawPolygon([
+      this.x + 50, this.y,
+      this.x + 20, this.y + 40,
+      this.x - 40, this.y + 40,
+      this.x - 40, this.y - 40,
+      this.x + 20, this.y - 40
+    ])
 
-    let figure = new PIXI.Graphics();
-    figure.lineStyle(4, 0xFFFFFF);
-    figure.beginFill(bodyColor, 0.5);
-    figure.drawPolygon(path);
-    figure.endFill();
-    figure.interactive = true;
-    figure.hitArea = figure.getBounds();
-
-    return figure;
   }
 
 }

@@ -7,6 +7,10 @@ import Observer from '../observer/observer';
 import Circle from '../shape/circle';
 import Ellipse from '../shape/ellipse';
 import Hexagon from '../shape/hexagon';
+import Triangle from '../shape/triangle';
+import Rectangle from '../shape/rectangle';
+import Pentagon from '../shape/pentagon';
+import Star from '../shape/star';
 
 class Model {
   constructor() {
@@ -54,7 +58,7 @@ class Model {
   getRandomSpawnPosition() {
     return {
       x: this.getRandomInRange(0, this.config.width),
-      y: this.getRandomInRange(-500, -80),
+      y: this.getRandomInRange(-80, -80),
     };
   }
 
@@ -64,11 +68,11 @@ class Model {
     switch (rand) {
       case 1: return new Circle(position);
       case 2: return new Ellipse(position);
-      // case 3: return this.triangle.createTriangle(position);
-      // case 4: return this.rectangle.createRect(position);
-      // case 5: return this.pentagon.createPentagon(position);
+      case 3: return new Triangle(position);
+      case 4: return new Rectangle(position);
+      case 5: return new Pentagon(position);
       case 6: return new Hexagon(position);
-      // case 7: return this.star.createStar(position);
+      case 7: return new Star(position);
       default: return new Circle(position);
     }
   }
