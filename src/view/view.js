@@ -125,8 +125,8 @@ class View {
                 this.onShapeExit.notify(shape);
             }
             else {
-                shape.shapeSpeed = this.model.gravity * delta * this.PIXELS_PER_METER * 1000;
-                shape.position.y += shape.shapeSpeed / 1000 / delta;
+                shape.shapeSpeed = this.model.gravity * delta * this.PIXELS_PER_METER;
+                shape.position.y += shape.shapeSpeed / delta;
             }
         });
     }
