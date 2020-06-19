@@ -28,7 +28,6 @@ class Model {
       width: 900,
       height: 500,
       delayBetweenSpawn: 1,
-
     };
   }
 
