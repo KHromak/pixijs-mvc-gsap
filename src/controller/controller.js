@@ -6,6 +6,13 @@
  */
 
 import TweenMax from '../../graphics/TweenMax';
+import Circle from '../shape/circle';
+import Ellipse from '../shape/ellipse';
+import Hexagon from '../shape/hexagon';
+import Triangle from '../shape/triangle';
+import Rectangle from '../shape/rectangle';
+import Pentagon from '../shape/pentagon';
+import Star from '../shape/star';
 
 class Controller {
 
@@ -21,7 +28,9 @@ class Controller {
         this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond - 1));
 
         this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
-        this.view.onShapeClicked.subscribe(shape => this.removeShape(shape));
+        // this.view.onShapeClicked.subscribe(shapeInstance => this.removeShape(shapeInstance.figure));
+        this.view.onShapeClicked.subscribe(clickedShape => this.markAndRemoveShapes(clickedShape));
+
         this.view.onShapeExit.subscribe(shape => this.removeShape(shape));
 
         this.startSpawningShapes();
@@ -29,14 +38,67 @@ class Controller {
     }
 
     drawRandomShape(position) {
-        let shape = this.model.createRandomShape(position).figure;
-        this.view.drawShape(shape);
-        this.shapes.push(shape);
+        let shapeInstance = this.model.createRandomShape(position);
+        this.view.drawShape(shapeInstance);
+        this.shapes.push(shapeInstance);
+    }
+
+    markAndRemoveShapes(clickedShape) {
+        this.markSameShapes(clickedShape)
+        this.removeShape(clickedShape.figure)
     }
 
     removeShape(shape) {
         this.view.removeShape(shape);
-        this.shapes = this.shapes.filter(item => item !== shape);
+
+        this.shapes = this.shapes.filter(shapeInstance => {
+            let item = shapeInstance.figure;
+            item !== shape
+        });
+    }
+
+    markSameShapes(clickedShape) {
+        // if (clickedShape instanceof Star) {
+        //     this.shapes.forEach(shapeInstance => {
+        //         shapeInstance instanceof Star ? console.log('star!') : console.log('no star')
+        //     })
+        // }
+
+        switch (true) {
+            case clickedShape instanceof Circle:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Circle) return console.log('Circles!')
+                });
+            case clickedShape instanceof Ellipse:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Ellipse) return console.log('Ellipse!') 
+                });
+            case clickedShape instanceof Triangle:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Triangle) return console.log('Triangle!') 
+                });
+            case clickedShape instanceof Rectangle:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Rectangle) return console.log('Rectangle!') 
+                });
+            case clickedShape instanceof Pentagon:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Pentagon) return console.log('Pentagon!') 
+                });
+            case clickedShape instanceof Hexagon:
+                 return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Hexagon) return console.log('Hexagon!') 
+                });
+            case clickedShape instanceof Star:
+                return this.shapes.forEach(shapeInstance => {
+                    if (shapeInstance instanceof Star) return console.log('star!') 
+                });
+
+            default: console.log('undefined shape')
+        }
+
+
+
     }
 
     createShapes(shapesPerSecond) {
@@ -62,7 +124,8 @@ class Controller {
         let count = 0;
         let square = 0;
 
-        this.shapes.forEach(shape => {
+        this.shapes.forEach(shapeInstance => {
+            let shape = shapeInstance.figure;
             let position = shape.position.y + shape.hitArea.y;
             let topPosition = position - shape.height;
             let bottomPosition = position + shape.height;
