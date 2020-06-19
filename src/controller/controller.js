@@ -30,7 +30,11 @@ class Controller {
 
     drawRandomShape(position) {
         let shape = this.model.createRandomShape(position).figure;
-        this.view.drawShape(shape);
+        shape.shapeSpeed = 0;
+        this.view.app.ticker.add((delta) => {
+            this.view.drawShape(shape, delta);
+        });
+        // this.view.drawShape(shape);
         this.shapes.push(shape);
     }
 
@@ -42,6 +46,7 @@ class Controller {
     createShapes(shapesPerSecond) {
         for (let i = 0; i < shapesPerSecond; i++) {
             let position = this.model.getRandomSpawnPosition();
+            
             this.drawRandomShape(position);
         }
     }

@@ -11,6 +11,8 @@ class View {
     constructor(model) {
         this.model = model;
 
+        this.PIXELS_PER_METER = window.innerWidth / 1000;
+
         this.app = new PIXI.Application({
             width: this.model.config.width,
             height: this.model.config.height,
@@ -101,24 +103,50 @@ class View {
         this.app.stage.interactive = true;
         this.app.stage.buttonMode = true;
         this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
+
     }
 
-    drawShape(shape) {
+    drawShape(shape, delta) {
         this.app.stage.addChild(shape);
+        // debugger
+        this.app.stage.children.forEach((shape) => {
+            if (shape) {
+                if (shape.position.y > this.app.renderer.height / this.app.renderer.resolution) {
+                    
+                    shape.shapeSpeed = 0;
+                    // this.removeShape(shape)
+                    debugger
+                    shape.destroy();
+                    return;
+                }
+                console.log(shape.shapeSpeed)
+                // calc vertical velocity and store it in a shape
+                shape.shapeSpeed += this.model.gravity * delta * this.PIXELS_PER_METER;
+                // update position by add (velocity/fps)
+                shape.position.y += shape.shapeSpeed / 1000 / delta;
+            }
+        })
 
-        shape.on('click', e => {
-            e.stopPropagation();
-            this.onShapeClicked.notify(shape);
-        });
-
-        let args = {
-            y: this.model.config.height - shape.hitArea.y,
-            onComplete: () => this.onShapeExit.notify(shape),
-            ease: Linear.easeNone
-        };
-
-        TweenMax.to(shape, this.model.gravity, args);
     }
+
+
+
+    // drawShape(shape) {
+    //     this.app.stage.addChild(shape);
+
+    //     shape.on('click', e => {
+    //         e.stopPropagation();
+    //         this.onShapeClicked.notify(shape);
+    //     });
+
+    //     let args = {
+    //         y: this.model.config.height - shape.hitArea.y,
+    //         onComplete: () => this.onShapeExit.notify(shape),
+    //         ease: Linear.easeNone
+    //     };
+
+    //     TweenMax.to(shape, this.model.gravity, args);
+    // }
 
     removeShape(shape) {
         this.app.stage.removeChild(shape);
