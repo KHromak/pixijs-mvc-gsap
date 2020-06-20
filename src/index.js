@@ -3,8 +3,8 @@ import View from './view/view';
 import Controller from './controller/controller';
 
 const main = () => {
-    let model = new Model();
-    let view = new View(model);
+    const model = new Model();
+    const view = new View(model);
     const controller = new Controller(model, view);
 };
 

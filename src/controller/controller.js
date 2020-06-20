@@ -6,13 +6,6 @@
  */
 
 import TweenMax from '../../graphics/TweenMax';
-import Circle from '../shape/circle';
-import Ellipse from '../shape/ellipse';
-import Hexagon from '../shape/hexagon';
-import Triangle from '../shape/triangle';
-import Rectangle from '../shape/rectangle';
-import Pentagon from '../shape/pentagon';
-import Star from '../shape/star';
 
 class Controller {
 
@@ -20,7 +13,6 @@ class Controller {
         this.model = model;
         this.view = view;
         this.shapes = [];
-        this.shapesCoordinates = [];
 
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
         this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity - 0.5));
@@ -29,70 +21,50 @@ class Controller {
         this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond - 1));
 
         this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
-        // this.view.onShapeClicked.subscribe(shapeInstance => this.removeShape(shapeInstance.figure));
-        this.view.onShapeClicked.subscribe(clickedShapeInstance => this.markAndRemoveShapes(clickedShapeInstance));
-
-        this.view.onShapeExit.subscribe(shape => this.removeShape(shape));
+        this.view.onShapeClicked.subscribe(shapeInstance => this.removeShapeAndRedrawSimilar(shapeInstance));
+        this.view.onShapeExit.subscribe(shapeInstance => this.removeShape(shapeInstance));
 
         this.startSpawningShapes();
-        this.startCalculations();
+
+        PIXI.Ticker.shared.add((delta) => {
+            this.animate(delta);
+            this.calculateCounters();
+        });
     }
 
     drawRandomShape(position) {
-        let randomShapeNumber = this.model.getRandomInRange(1, 7);
-        let shapeInstance = this.model.createShape(position, randomShapeNumber);
+        let shapeInstance = this.model.createRandomShape(position);
+        this.drawShape(shapeInstance);
+    }
+
+    drawShape(shapeInstance) {
         this.view.drawShape(shapeInstance);
         this.shapes.push(shapeInstance);
     }
 
-    markAndRemoveShapes(clickedShapeInstance) {
-        this.markSameShapes(clickedShapeInstance)
-        this.removeShape(clickedShapeInstance.figure)
+    redrawShape(shapeInstance) {
+        // re-create same shape type on same position but with another random color
+        let newInstance = shapeInstance.clone();
+        this.removeShape(shapeInstance);
+        this.drawShape(newInstance);
     }
 
-    removeShape(shape) {
-        this.view.removeShape(shape);
-        this.shapes = this.shapes.filter(shapeInstance => shapeInstance.figure !== shape);
+    removeShape(shapeInstance) {
+        this.view.removeShape(shapeInstance);
+        this.shapes = this.shapes.filter(shape => shape !== shapeInstance);
     }
 
-    createShapesInCoordinates() {
-        console.log(this.shapesCoordinates)
-        for (let i = 2; i < this.shapesCoordinates.length; i++) {
-            if (i % 2 == 1) continue;
-            let position = {};
-            position.x = this.shapesCoordinates[i];
-            position.y = this.shapesCoordinates[i+1];
-
-            let shapeInstance = this.model.createShape(position, 3);
-            console.log(shapeInstance, 'shapeInstance')
-            this.view.drawShape(shapeInstance);
-
-        }
-        
+    removeShapeAndRedrawSimilar(shapeInstance) {
+        this.removeShape(shapeInstance);
+        this.redrawShapesOfType(shapeInstance.constructor);
     }
 
-    sameShapesRemove(shapeClass) {
+    redrawShapesOfType(shapeType) {
         this.shapes.forEach(shapeInstance => {
-            if (shapeInstance instanceof shapeClass) {
-                this.shapesCoordinates.push(shapeInstance.x, shapeInstance.y)
-                this.removeShape(shapeInstance.figure)
+            if (shapeInstance instanceof shapeType) {
+                this.redrawShape(shapeInstance);
             }
         });
-        this.createShapesInCoordinates()
-        this.shapesCoordinates = [];
-    }
-
-    markSameShapes(clickedShapeInstance) {
-        switch (true) {
-            case clickedShapeInstance instanceof Circle: return this.sameShapesRemove(Circle);
-            case clickedShapeInstance instanceof Ellipse: return this.sameShapesRemove(Ellipse);
-            case clickedShapeInstance instanceof Triangle: return this.sameShapesRemove(Triangle);
-            case clickedShapeInstance instanceof Rectangle: return this.sameShapesRemove(Rectangle);
-            case clickedShapeInstance instanceof Pentagon: return this.sameShapesRemove(Pentagon);
-            case clickedShapeInstance instanceof Hexagon: return this.sameShapesRemove(Hexagon);
-            case clickedShapeInstance instanceof Star: return this.sameShapesRemove(Star);
-            default: console.log('undefined shape');
-        }
     }
 
     createShapes(shapesPerSecond) {
@@ -109,12 +81,7 @@ class Controller {
             () => this.startSpawningShapes());
     }
 
-    startCalculations() {
-        this.enumerateVisibleShapes();
-        requestAnimationFrame(() => this.startCalculations());
-    }
-
-    enumerateVisibleShapes() {
+    calculateCounters() {
         let count = 0;
         let square = 0;
 
@@ -132,6 +99,19 @@ class Controller {
 
         this.model.setCount(count);
         this.model.setSquare(Math.round(square));
+    }
+
+    animate(delta) {
+        this.shapes.forEach(shapeInstance => {
+            let shape = shapeInstance.figure;
+
+            if (shape.position.y > this.model.config.height - shape.hitArea.y) {
+                this.removeShape(shapeInstance);
+            }
+            else {
+                shape.position.y += this.model.gravity * delta;
+            }
+        });
     }
 }
 

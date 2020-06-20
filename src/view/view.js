@@ -4,14 +4,11 @@
  */
 
 import Observer from '../observer/observer';
-import TweenMax from '../../graphics/TweenMax';
 
 class View {
 
     constructor(model) {
         this.model = model;
-
-        this.PIXELS_PER_METER = window.innerWidth / 1000;
 
         this.app = new PIXI.Application({
             width: this.model.config.width,
@@ -102,11 +99,7 @@ class View {
 
         this.app.stage.interactive = true;
         this.app.stage.buttonMode = true;
-        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
-
-        this.app.ticker.add((delta) => {
-            this.animate(delta);
-        });
+        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height);
     }
 
     drawShape(shapeInstance) {
@@ -119,19 +112,8 @@ class View {
         });
     }
 
-    animate(delta) {
-        this.app.stage.children.forEach((shape) => {
-            if (shape.position.y - shape.height - 100 > this.app.renderer.height / this.app.renderer.resolution) {
-                this.onShapeExit.notify(shape);
-            }
-            else {
-                shape.shapeSpeed = this.model.gravity * delta * this.PIXELS_PER_METER;
-                shape.position.y += shape.shapeSpeed / delta;
-            }
-        });
-    }
-
-    removeShape(shape) {
+    removeShape(shapeInstance) {
+        let shape = shapeInstance.figure;
         this.app.stage.removeChild(shape);
         shape.destroy();
     }

@@ -1,6 +1,7 @@
 class Shape {
 
     constructor(position) {
+        this.position = position;
         this.x = position.x;
         this.y = position.y;
 
@@ -29,6 +30,12 @@ class Shape {
 
     getColor() {
         return Math.floor(Math.random() * 0xFFFFFF);
+    }
+
+    clone() {
+        let cloned = new this.constructor(this.position);
+        cloned.figure.y = this.figure.y;
+        return cloned;
     }
 }
 

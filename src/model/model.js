@@ -62,9 +62,9 @@ class Model {
     };
   }
 
-  createShape(position, shapeNumber) {
-console.log(position, 'hello')
-    switch (shapeNumber) {
+  createRandomShape(position) {
+    let rand = this.getRandomInRange(1, 7);
+    switch (rand) {
       case 1: return new Circle(position);
       case 2: return new Ellipse(position);
       case 3: return new Triangle(position);
