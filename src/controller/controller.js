@@ -29,7 +29,7 @@ class Controller {
 
         this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
         // this.view.onShapeClicked.subscribe(shapeInstance => this.removeShape(shapeInstance.figure));
-        this.view.onShapeClicked.subscribe(clickedShape => this.markAndRemoveShapes(clickedShape));
+        this.view.onShapeClicked.subscribe(clickedShapeInstance => this.markAndRemoveShapes(clickedShapeInstance));
 
         this.view.onShapeExit.subscribe(shape => this.removeShape(shape));
 
@@ -43,55 +43,47 @@ class Controller {
         this.shapes.push(shapeInstance);
     }
 
-    markAndRemoveShapes(clickedShape) {
-        this.markSameShapes(clickedShape)
-        this.removeShape(clickedShape.figure)
+    markAndRemoveShapes(clickedShapeInstance) {
+        this.markSameShapes(clickedShapeInstance)
+        this.removeShape(clickedShapeInstance.figure)
     }
 
     removeShape(shape) {
         this.view.removeShape(shape);
 
-        this.shapes = this.shapes.filter(shapeInstance => {
-            let item = shapeInstance.figure;
-            item !== shape
-        });
+        this.shapes = this.shapes.filter(shapeInstance => shapeInstance.figure !== shape);
     }
 
-    markSameShapes(clickedShape) {
-        // if (clickedShape instanceof Star) {
-        //     this.shapes.forEach(shapeInstance => {
-        //         shapeInstance instanceof Star ? console.log('star!') : console.log('no star')
-        //     })
-        // }
+    markSameShapes(clickedShapeInstance) {
 
         switch (true) {
-            case clickedShape instanceof Circle:
+            case clickedShapeInstance instanceof Circle:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Circle) return console.log('Circles!')
+                    if (shapeInstance instanceof Circle) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Ellipse:
+            case clickedShapeInstance instanceof Ellipse:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Ellipse) return console.log('Ellipse!') 
+                    if (shapeInstance instanceof Ellipse) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Triangle:
+            case clickedShapeInstance instanceof Triangle:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Triangle) return console.log('Triangle!') 
+                    if (shapeInstance instanceof Triangle) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Rectangle:
+            case clickedShapeInstance instanceof Rectangle:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Rectangle) return console.log('Rectangle!') 
+                    if (shapeInstance instanceof Rectangle) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Pentagon:
+            case clickedShapeInstance instanceof Pentagon:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Pentagon) return console.log('Pentagon!') 
+                    if (shapeInstance instanceof Pentagon) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Hexagon:
+            case clickedShapeInstance instanceof Hexagon:
                  return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Hexagon) return console.log('Hexagon!') 
+                    if (shapeInstance instanceof Hexagon) return this.removeShape(shapeInstance.figure)
                 });
-            case clickedShape instanceof Star:
+            case clickedShapeInstance instanceof Star:
                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Star) return console.log('star!') 
+                    if (shapeInstance instanceof Star) return this.removeShape(shapeInstance.figure)
                 });
 
             default: console.log('undefined shape')
