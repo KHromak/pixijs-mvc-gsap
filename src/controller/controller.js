@@ -38,7 +38,8 @@ class Controller {
     }
 
     drawRandomShape(position) {
-        let shapeInstance = this.model.createRandomShape(position);
+        let randomShapeNumber = this.model.getRandomInRange(1, 7);
+        let shapeInstance = this.model.createShape(position, randomShapeNumber);
         this.view.drawShape(shapeInstance);
         this.shapes.push(shapeInstance);
     }
