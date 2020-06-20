@@ -4,7 +4,6 @@
  */
 
 import Observer from '../observer/observer';
-import TweenMax from '../../graphics/TweenMax';
 
 class View {
 
@@ -100,28 +99,23 @@ class View {
 
         this.app.stage.interactive = true;
         this.app.stage.buttonMode = true;
-        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height / this.app.renderer.resolution);
+        this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.model.config.width, this.model.config.height);
     }
 
-    drawShape(shape) {
+    drawShape(shapeInstance) {
+        let shape = shapeInstance.figure;
         this.app.stage.addChild(shape);
 
         shape.on('click', e => {
             e.stopPropagation();
-            this.onShapeClicked.notify(shape);
+            this.onShapeClicked.notify(shapeInstance);
         });
-
-        let args = {
-            y: this.model.config.height - shape.hitArea.y,
-            onComplete: () => this.onShapeExit.notify(shape),
-            ease: Linear.easeNone
-        };
-
-        TweenMax.to(shape, this.model.gravity, args);
     }
 
-    removeShape(shape) {
+    removeShape(shapeInstance) {
+        let shape = shapeInstance.figure;
         this.app.stage.removeChild(shape);
+        shape.destroy();
     }
 }
 
