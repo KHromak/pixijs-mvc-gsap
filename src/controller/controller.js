@@ -51,11 +51,10 @@ class Controller {
 
     removeShape(shape) {
         this.view.removeShape(shape);
-
         this.shapes = this.shapes.filter(shapeInstance => shapeInstance.figure !== shape);
     }
 
-    sameShapesMethod(shapeClass) {
+    sameShapesRemove(shapeClass) {
         this.shapes.forEach(shapeInstance => {
             if (shapeInstance instanceof shapeClass) return this.removeShape(shapeInstance.figure)
         });
@@ -63,13 +62,13 @@ class Controller {
 
     markSameShapes(clickedShapeInstance) {
         switch (true) {
-            case clickedShapeInstance instanceof Circle: return this.sameShapesMethod(Circle);
-            case clickedShapeInstance instanceof Ellipse: return this.sameShapesMethod(Ellipse);
-            case clickedShapeInstance instanceof Triangle: return this.sameShapesMethod(Triangle);
-            case clickedShapeInstance instanceof Rectangle: return this.sameShapesMethod(Rectangle);
-            case clickedShapeInstance instanceof Pentagon: return this.sameShapesMethod(Pentagon);
-            case clickedShapeInstance instanceof Hexagon: return this.sameShapesMethod(Hexagon);
-            case clickedShapeInstance instanceof Star: return this.sameShapesMethod(Star);
+            case clickedShapeInstance instanceof Circle: return this.sameShapesRemove(Circle);
+            case clickedShapeInstance instanceof Ellipse: return this.sameShapesRemove(Ellipse);
+            case clickedShapeInstance instanceof Triangle: return this.sameShapesRemove(Triangle);
+            case clickedShapeInstance instanceof Rectangle: return this.sameShapesRemove(Rectangle);
+            case clickedShapeInstance instanceof Pentagon: return this.sameShapesRemove(Pentagon);
+            case clickedShapeInstance instanceof Hexagon: return this.sameShapesRemove(Hexagon);
+            case clickedShapeInstance instanceof Star: return this.sameShapesRemove(Star);
             default: console.log('undefined shape');
         }
     }

@@ -111,7 +111,6 @@ class View {
 
     drawShape(shapeInstance) {
         let shape = shapeInstance.figure;
-        shape.shapeSpeed = 0;
         this.app.stage.addChild(shape);
 
         shape.on('click', e => {
