@@ -63,7 +63,7 @@ class Model {
   }
 
   createShape(position, shapeNumber) {
-
+console.log(position, 'hello')
     switch (shapeNumber) {
       case 1: return new Circle(position);
       case 2: return new Ellipse(position);

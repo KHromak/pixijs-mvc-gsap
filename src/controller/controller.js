@@ -20,6 +20,7 @@ class Controller {
         this.model = model;
         this.view = view;
         this.shapes = [];
+        this.shapesCoordinates = [];
 
         this.view.onIncreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity + 0.5));
         this.view.onDecreaseGravity.subscribe(() => this.model.setGravity(this.model.gravity - 0.5));
@@ -54,10 +55,31 @@ class Controller {
         this.shapes = this.shapes.filter(shapeInstance => shapeInstance.figure !== shape);
     }
 
+    createShapesInCoordinates() {
+        console.log(this.shapesCoordinates)
+        for (let i = 2; i < this.shapesCoordinates.length; i++) {
+            if (i % 2 == 1) continue;
+            let position = {};
+            position.x = this.shapesCoordinates[i];
+            position.y = this.shapesCoordinates[i+1];
+
+            let shapeInstance = this.model.createShape(position, 3);
+            console.log(shapeInstance, 'shapeInstance')
+            this.view.drawShape(shapeInstance);
+
+        }
+        
+    }
+
     sameShapesRemove(shapeClass) {
         this.shapes.forEach(shapeInstance => {
-            if (shapeInstance instanceof shapeClass) return this.removeShape(shapeInstance.figure)
+            if (shapeInstance instanceof shapeClass) {
+                this.shapesCoordinates.push(shapeInstance.x, shapeInstance.y)
+                this.removeShape(shapeInstance.figure)
+            }
         });
+        this.createShapesInCoordinates()
+        this.shapesCoordinates = [];
     }
 
     markSameShapes(clickedShapeInstance) {
