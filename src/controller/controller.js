@@ -54,43 +54,23 @@ class Controller {
         this.shapes = this.shapes.filter(shapeInstance => shapeInstance.figure !== shape);
     }
 
+    sameShapesMethod(shapeClass) {
+        this.shapes.forEach(shapeInstance => {
+            if (shapeInstance instanceof shapeClass) return this.removeShape(shapeInstance.figure)
+        });
+    }
+
     markSameShapes(clickedShapeInstance) {
-
         switch (true) {
-            case clickedShapeInstance instanceof Circle:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Circle) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Ellipse:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Ellipse) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Triangle:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Triangle) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Rectangle:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Rectangle) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Pentagon:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Pentagon) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Hexagon:
-                 return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Hexagon) return this.removeShape(shapeInstance.figure)
-                });
-            case clickedShapeInstance instanceof Star:
-                return this.shapes.forEach(shapeInstance => {
-                    if (shapeInstance instanceof Star) return this.removeShape(shapeInstance.figure)
-                });
-
-            default: console.log('undefined shape')
+            case clickedShapeInstance instanceof Circle: return this.sameShapesMethod(Circle);
+            case clickedShapeInstance instanceof Ellipse: return this.sameShapesMethod(Ellipse);
+            case clickedShapeInstance instanceof Triangle: return this.sameShapesMethod(Triangle);
+            case clickedShapeInstance instanceof Rectangle: return this.sameShapesMethod(Rectangle);
+            case clickedShapeInstance instanceof Pentagon: return this.sameShapesMethod(Pentagon);
+            case clickedShapeInstance instanceof Hexagon: return this.sameShapesMethod(Hexagon);
+            case clickedShapeInstance instanceof Star: return this.sameShapesMethod(Star);
+            default: console.log('undefined shape');
         }
-
-
-
     }
 
     createShapes(shapesPerSecond) {
