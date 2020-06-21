@@ -55,11 +55,37 @@ class Model {
     return Math.round((Math.random() * (max - min) + min));
   }
 
+  calculateDirection() {
+    let direction = this.getRandomInRange(0, 1);
+    return direction == 0 ?
+      direction = 'toBottom' :
+      direction = 'toRight' 
+  }
+
   getRandomSpawnPosition() {
+    let direction = this.calculateDirection();
+
+    if ( direction == "toBottom" ) {
+      return this.topAreaSpawnConfig();
+    } else {
+      return this.leftAreaSpawnConfig();
+    }
+  }
+
+  topAreaSpawnConfig() {
     return {
       x: this.getRandomInRange(0, this.config.width),
-      y: this.getRandomInRange(-80, -80),
-    };
+      y: -80,
+      direction: 'toBottom'
+    }
+  }
+
+  leftAreaSpawnConfig() {
+    return {
+      x: -80,
+      y: this.getRandomInRange(0, this.config.height),
+      direction: 'toRight'
+    }
   }
 
   createRandomShape(position) {

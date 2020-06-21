@@ -4,6 +4,7 @@ class Shape {
         this.position = position;
         this.x = position.x;
         this.y = position.y;
+        this.direction = position.direction;
 
         this.color = this.getColor();
         this.figure = new PIXI.Graphics();
@@ -34,9 +35,10 @@ class Shape {
 
     clone() {
         let cloned = new this.constructor(this.position);
-        cloned.figure.y = this.figure.y;
+        cloned.figure.position = this.figure.position;
         return cloned;
     }
+
 }
 
 export default Shape;

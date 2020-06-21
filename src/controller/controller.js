@@ -20,7 +20,7 @@ class Controller {
         this.view.onIncreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond + 1));
         this.view.onDecreaseShapes.subscribe(() => this.model.setShapesPerSecond(this.model.shapesPerSecond - 1));
 
-        this.view.onCanvasClicked.subscribe(position => this.drawRandomShape(position));
+        this.view.onCanvasClicked.subscribe(position => this.selectDirectionAndDrawRandomShape(position));
         this.view.onShapeClicked.subscribe(shapeInstance => this.removeShapeAndRedrawSimilar(shapeInstance));
         this.view.onShapeExit.subscribe(shapeInstance => this.removeShape(shapeInstance));
 
@@ -32,7 +32,30 @@ class Controller {
         });
     }
 
+    startSpawningShapes() {
+        this.createShapes(this.model.shapesPerSecond);
+
+        TweenMax.delayedCall(this.model.config.delayBetweenSpawn,
+            () => this.startSpawningShapes());
+    }
+
+    createShapes(shapesPerSecond) {
+        for (let i = 0; i < shapesPerSecond; i++) {
+            let position = this.model.getRandomSpawnPosition();
+            this.drawRandomShape(position);
+        }
+    }
+
+    selectDirectionAndDrawRandomShape(clickPosition) {
+        let position = {};
+        position.x = clickPosition.x;
+        position.y = clickPosition.y;
+        position.direction = this.model.calculateDirection()
+        this.drawRandomShape(position);
+    }
+
     drawRandomShape(position) {
+        position[this.model.calculateDirection()]
         let shapeInstance = this.model.createRandomShape(position);
         this.drawShape(shapeInstance);
     }
@@ -67,20 +90,6 @@ class Controller {
         });
     }
 
-    createShapes(shapesPerSecond) {
-        for (let i = 0; i < shapesPerSecond; i++) {
-            let position = this.model.getRandomSpawnPosition();
-            this.drawRandomShape(position);
-        }
-    }
-
-    startSpawningShapes() {
-        this.createShapes(this.model.shapesPerSecond);
-
-        TweenMax.delayedCall(this.model.config.delayBetweenSpawn,
-            () => this.startSpawningShapes());
-    }
-
     calculateCounters() {
         let count = 0;
         let square = 0;
@@ -104,14 +113,27 @@ class Controller {
     animate(delta) {
         this.shapes.forEach(shapeInstance => {
             let shape = shapeInstance.figure;
-
-            if (shape.position.y > this.model.config.height - shape.hitArea.y) {
-                this.removeShape(shapeInstance);
-            }
-            else {
-                shape.position.y += this.model.gravity * delta;
-            }
+            if (shapeInstance.direction == 'toBottom') this.animateToBottom(delta, shapeInstance, shape);
+            else if (shapeInstance.direction == 'toRight') this.animateToRight(delta, shapeInstance, shape);
         });
+    }
+
+    animateToRight(delta, shapeInstance, shape) {
+        if (shape.position.y > this.model.config.height - shape.hitArea.y) {
+            this.removeShape(shapeInstance);
+        }
+        else {
+            shape.position.x += this.model.gravity * delta;
+        }
+    }
+
+    animateToBottom(delta, shapeInstance, shape) {
+        if (shape.position.x > this.model.config.width - shape.hitArea.x) {
+            this.removeShape(shapeInstance);
+        }
+        else {
+            shape.position.y += this.model.gravity * delta;
+        }
     }
 }
 
