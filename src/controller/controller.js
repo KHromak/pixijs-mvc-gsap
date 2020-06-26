@@ -96,14 +96,19 @@ class Controller {
 
         this.shapes.forEach(shapeInstance => {
             let shape = shapeInstance.figure;
-            let position = shape.position.y + shape.hitArea.y;
-            let topPosition = position - shape.height;
-            let bottomPosition = position + shape.height;
+            let positionY = shape.position.y + shape.hitArea.y;
+            let topPosition = positionY - shape.height;
+            let bottomPosition = positionY + shape.height;
+            let positionX = shape.position.y + shape.hitArea.y;
+            let leftPosition = positionX - shape.width;
+            let rightPosition = positionX + shape.width;
 
-            if (bottomPosition > 0 && topPosition < this.model.config.height) {
+            if ((bottomPosition > 0 && topPosition < this.model.config.height && shapeInstance.position.direction === 'toBottom') ||
+                ((rightPosition > 0 && leftPosition < this.model.config.width && shapeInstance.position.direction === 'toRight'))) {
                 count++;
                 square += shape.width * shape.height;
             }
+
         });
 
         this.model.setCount(count);
